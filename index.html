@@ -32,7 +32,7 @@
             --bg-solid:           #101010;
             --primary-color:      #ffffff;
             --secondary-color:    #ffffff;
-            --accent-color:       #ec4899;
+            --accent-color:       rgba(139,92,246,1);
             --text-primary:       #ffffff;
             --text-secondary:     #d1d5db;
             --text-muted:         #9ca3af;
@@ -74,7 +74,7 @@
             --transition-base: 0.3s ease;
             --transition-slow: 0.5s ease;
 
-            --hero-bg:   linear-gradient(to bottom, transparent 0%, var(--bg-solid) 100%),
+            --hero-bg:   linear-gradient(to bottom, transparent 0%, var(--bg-solid) 60%),
                          url('./images/Final.png');
             --footer-bg: linear-gradient(to top, transparent 0%, var(--bg-solid) 100%),
                          url('./images/Final.png');
@@ -136,7 +136,7 @@
            ============================================ */
         .nav-header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: linear-gradient(180deg, rgba(16,16,16,0.85) 0%, rgba(16,16,16,0) 100%);
+            background: linear-gradient(180deg, rgba(16,16,16,0.89) 10%, rgba(16,16,16,0) 100%);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             padding: var(--space-xs) var(--space-md);
@@ -168,12 +168,14 @@
         .nav-dropdown {
             display: none;
             position: absolute; top: 100%; left: 0;
-            background: rgba(16,16,16,0.97);
+            background: rgba(16,16,16,0.70);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
             min-width: 200px;
             padding: 0.5rem 0;
             z-index: 1001;
+            list-style: none;
+            backdrop-filter: var(--glass-blur);
         }
         .nav-item-dropdown:hover .nav-dropdown,
         .nav-item-dropdown:focus-within .nav-dropdown { display: block; }
@@ -207,27 +209,30 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(16,16,16,0.98);
             z-index: 999;
-            flex-direction: column; align-items: center; justify-content: center;
-            gap: var(--space-lg);
+            flex-direction: column; align-items: left; justify-content: center;
+            padding-left: var(--space-2xl);
+            gap: var(--space-md);
+           
         }
         .nav-mobile-menu.open { display: flex; }
         .nav-mobile-menu a {
             color: var(--text-primary); text-decoration: none;
-            font-size: var(--font-size-2xl); font-weight: 700;
+            font-size: var(--font-size-lg); font-weight: 700;
             transition: color var(--transition-fast);
         }
         .nav-mobile-menu a:hover { color: var(--accent-color); }
         /* Sous-section projets dans le menu mobile */
         .nav-mobile-projects {
-            display: flex; flex-direction: column; align-items: center;
+            display: flex; flex-direction: column; align-items: left;
             gap: var(--space-sm);
         }
         .nav-mobile-projects .label {
-            font-size: var(--font-size-sm); color: var(--text-muted);
-            text-transform: uppercase; letter-spacing: 0.15em;
+            font-size: var(--font-size-lg);font-weight: 700;
         }
         .nav-mobile-projects a {
-            font-size: var(--font-size-lg);
+            
+            font-size: var(--font-size-sm); color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.15em;
         }
 
 
@@ -269,17 +274,11 @@
             box-shadow: 0 10px 30px rgba(139,92,246,0.4);
         }
         .btn:hover::before { left: 100%; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border: none; }
+        .btn-primary { background: var(--glass-bg); border: 1px solid var(--glass-border); }
         .btn-hero    { margin-top: var(--space-sm); margin-bottom: var(--space-3xl); }
 
         /* Centrage du bouton "Explore My Work" */
-        .btn-centered {
-            display: block;
-            text-align: center;
-            margin: var(--space-xl) auto 0;
-            width: fit-content;
-        }
-
+   
 
         /* ============================================
            HERO SECTION
@@ -348,7 +347,7 @@
         }
         .hero-description {
             font-size: var(--font-size-lg); color: var(--text-secondary);
-            margin-bottom: var(--space-lg); line-height: 1.8; text-align: left;
+            margin-bottom: var(--space-sm); line-height: 1.8; text-align: left;
         }
 
 
@@ -446,7 +445,7 @@
         /* Première rangée : cartes visibles normalement */
         .work-card {
             position: relative; overflow: hidden;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-sm);
             border: 1px solid var(--glass-border);
             aspect-ratio: 4 / 3;
             background: var(--glass-bg);
@@ -482,7 +481,7 @@
         .my-work-gradient-overlay {
             position: absolute;
             bottom: 0; left: 0; right: 0;
-            height: 200px;
+            height: 900px;
             background: linear-gradient(to bottom, transparent 0%, var(--bg-solid) 100%);
             pointer-events: none;
             z-index: 5;
@@ -514,9 +513,9 @@
             gap: var(--space-xl); align-items: center;
         }
         .profile-image {
-            width: 100%; height: 300px;
+            width: 300px; height: auto;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: var(--radius-md); border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm); 
         }
         .about-content h3 { font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: var(--space-md); }
         .about-content p  { color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-md); font-size: var(--font-size-base); }
@@ -645,10 +644,10 @@
          JS calls window.dismissLoader() once loaded.
          ============================================ -->
     <div id="loading-screen" role="status" aria-live="polite" aria-label="Chargement du portfolio">
-        <img src="./images/Icon Xs.png"
+        <img src="./images/Icon.png"
              class="loading-logo"
              alt="Portfolio logo"
-             width="120" height="120">
+             width="100%" height="auto">
         <div class="loading-bar-track">
             <div class="loading-bar-fill" id="loading-bar"></div>
         </div>
@@ -664,7 +663,7 @@
 
             <!-- Logo — retour à l'accueil -->
             <a href="./index.html">
-                <img src="./images/Icon Xs.png" class="nav-logo" alt="Logo — retour à l'accueil">
+                <img src="./images/Icon.png" class="nav-logo" alt="Logo — retour à l'accueil" width="20%" height="auto">
             </a>
 
             <!-- Menu desktop -->
@@ -674,7 +673,7 @@
                 <!-- Dropdown Projets -->
                 <li class="nav-item-dropdown">
                     <a href="./projects.html" aria-haspopup="true">Projets ▾</a>
-                    <ul class="nav-dropdown" role="menu">
+                    <ul class="nav-dropdown" role="menu" >
                         <li><a href="./Pokemon_TCGP.html" role="menuitem">Pokémon TCGP</a></li>
                         <li><a href="./Revision_Go.html" role="menuitem">Révision Go</a></li>
                         <li><a href="./Terra_Numerica.html" role="menuitem">Terra Numerica</a></li>
@@ -735,7 +734,7 @@
         </h1>
 
         <!-- Bouton "Explore My Work" centré dans le hero -->
-        <a href="./projects.html" class="btn btn-hero btn-centered" aria-label="Explorer mes projets">Explore My Work</a>
+        <a href="./projects.html" class="btn btn-hero btn-centered" aria-label="Explorer mes projets">Voir tous mes projets</a>
 
         <div class="hero-content glass-container">
             <p class="hero-subtitle">
@@ -862,7 +861,7 @@
 
                 <!-- Bouton "Explore My Work" centré sous la grille -->
                 <div class="my-work-cta">
-                    <a href="./projects.html" class="btn" aria-label="Voir tous mes projets">Explore My Work</a>
+                    <a href="./projects.html" class="btn" aria-label="Voir tous mes projets">Voir tous mes projets</a>
                 </div>
 
             </div>
@@ -871,13 +870,13 @@
         <!-- ABOUT -->
         <section class="content-section" id="about-section" aria-labelledby="about-title">
             <div class="section-inner">
-                <h2 class="section-title" id="about-title"><span class="font-primary">About Me</span></h2>
+                <h2 class="section-title" id="about-title"><span class="font-primary">A propos de moi</span></h2>
                 <div class="about-container glass-container">
-                    <div class="profile-image" role="img" aria-label="Photo de profil"></div>
+                    <img src="./images/Aboutme.png" width="100%" height="auto" class="profile-image" role="img" aria-label="Photo de profil">
                     <div class="about-content">
-                        <h3>Hello, I'm [Your Name]</h3>
-                        <p>I'm a passionate designer and developer dedicated to creating exceptional digital experiences. With a blend of creativity and technical expertise, I transform ideas into reality.</p>
-                        <p>My journey in design has been driven by curiosity and a commitment to continuous learning. I thrive on challenges and am always exploring new ways to push creative boundaries.</p>
+                        <h3>Marius Divry <br> Mandrille</h3>
+                        <p>J’ai toujours été attiré par les arts visuels, que ce soit à travers la bande dessinée ou, plus tard, le graphisme.J’aime découvrir de nouvelles façons de communiquer visuellement et de transmettre des messages avec créativité et impact.Je me suis orienté vers la direction artistique car c’est, pour moi, une manière de concrétiser ma passion et de l’ancrer dans un monde professionnel.</p>
+                        <p>Je me suis orienté vers la direction artistique car c’est, pour moi, une manière de concrétiser ma passion et de l’ancrer dans un monde professionnel.</p>
                     </div>
                 </div>
             </div>
@@ -886,7 +885,7 @@
         <!-- SKILLS -->
         <section class="content-section" id="skills-section" aria-labelledby="skills-title">
             <div class="section-inner">
-                <h2 class="section-title" id="skills-title"><span class="font-primary">My Skills</span></h2>
+                <h2 class="section-title" id="skills-title"><span class="font-primary">Mes Compétences</span></h2>
 
                 <div class="scroll-band" aria-hidden="true">
                     <div class="scroll-content reverse">
@@ -908,15 +907,15 @@
                 <div class="grid">
                     <article class="card">
                         <h3 class="card-title">Design</h3>
-                        <p class="card-text">Figma, Adobe XD, Sketch, Photoshop, Illustrator</p>
+                        <p class="card-text">Figma, Photoshop, Illustrator, InDesign</p>
                     </article>
                     <article class="card">
                         <h3 class="card-title">Development</h3>
-                        <p class="card-text">HTML, CSS, JavaScript, React, Vue, Node.js</p>
+                        <p class="card-text">HTML, CSS</p>
                     </article>
                     <article class="card">
-                        <h3 class="card-title">Tools</h3>
-                        <p class="card-text">Git, Webpack, VS Code, Notion, Jira</p>
+                        <h3 class="card-title">Motion</h3>
+                        <p class="card-text">PremierPro, Blender, AfterEffect</p>
                     </article>
                 </div>
             </div>
@@ -926,7 +925,7 @@
         <section class="download-section" id="download" aria-labelledby="download-title">
             <h2 class="section-title" id="download-title">Download My CV</h2>
             <button class="btn btn-primary download-btn" onclick="downloadCV()" aria-label="Télécharger le CV en PDF">
-                📄 Download CV (PDF)
+                 Download CV (PDF)
             </button>
         </section>
 
@@ -940,7 +939,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Contact</h3>
-                <a href="mailto:votre@email.com">votre@email.com</a>
+                <a href="/cdn-cgi/l/email-protection#17617863657257727a767e7b3974787a"><span class="__cf_email__" data-cfemail="b8ced7cccaddf8ddd5d9d1d496dbd7d5">[email&#160;protected]</span></a>
                 <a href="tel:+33600000000">+33 6 00 00 00 00</a>
                 <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
                     123 Rue du Design<br>75001 Paris, France
@@ -972,7 +971,7 @@
          PERF: était 3 <script> synchrones qui bloquaient le parsing HTML.
          Avec defer, le navigateur parse + render la page pendant le téléchargement.
          ============================================ -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
 
@@ -1036,39 +1035,64 @@
 
     /* ============================================
        THREE.JS CONFIGURATION
-       — Seul endroit à modifier pour les changements 3D —
+       ─────────────────────────────────────────────
+       REPOSITIONNER LES CRISTAUX :
+         position.x / y   — gauche-droite / haut-bas (desktop)
+         mobilePosition    — même chose sur mobile (< 768px)
+         scale             — taille desktop
+         mobileScale       — taille mobile
+
+       PHYSIQUE :
+         rotationSpeed     — vitesse de rotation de base (auto-spin)
+         mouseInfluence    — réactivité au mouvement souris (0.01 subtil → 0.05 fort)
+         hoverSpin         — spin bonus quand la souris survole ce cristal
+
+       FADE-OUT :
+         ROT_FRICTION = 0.96  dans animateObject — plus proche de 1 = glisse plus
+         POS_FRICTION = 0.88  idem pour la position
        ============================================ */
     const THREE_CONFIG = {
         enabled: true,
 
-        /* Objets derrière la glass card */
+        /* ── Cristaux derrière la glass card ── */
         backCubes: [
             {
-                position:       { x: -300, y: 100,  z: -50 },
-                rotationSpeed:  { x: 0.002, y: 0.003 },
-                mouseInfluence: 0.02,
-                modelPath:      'models/porfolio crystal.glb',
-                scale:          20
+                /* Cristal gauche */
+                position:        { x: -300, y: 100,  z: -50 },
+                mobilePosition:  { x: -120, y:  60,  z: -50 },
+                scale:           10,
+                mobileScale:     16,
+                rotationSpeed:   { x: 0.02, y: 0.03 },
+                mouseInfluence:  0.002,
+                hoverSpin:       { x: 0.0001,  y: 0.0004 },
+                modelPath:       'models/porfolio crystal.glb',
             },
             {
-                position:       { x: 300,  y: -80,  z: -50 },
-                rotationSpeed:  { x: 0.003, y: 0.002 },
-                mouseInfluence: 0.003,
-                modelPath:      'models/porfolio crystal.glb',
-                scale:          20
+                /* Cristal droit */
+                position:        { x: 300,  y: -80,  z: -50 },
+                mobilePosition:  { x:  120, y: -40,  z: -50 },
+                scale:           10,
+                mobileScale:     16,
+                rotationSpeed:   { x: 0.03, y: 0.02 },
+                mouseInfluence:  0.002,
+                hoverSpin:       { x: 0.0001,  y: 0.0005 },
+                modelPath:       'models/porfolio crystal2.glb',
             }
         ],
 
-        /* Objet devant la glass card */
+        /* ── Cristal devant la glass card ── */
         frontCube: {
-            position:       { x: -250, y: -150, z: 300 },
-            rotationSpeed:  { x: 0.0005, y: 0.004 },
-            mouseInfluence: 0.004,
-            modelPath:      'models/porfolio crystal.glb',
-            scale:          7
+            position:        { x: -250, y: -150, z: 300 },
+            mobilePosition:  { x:  -80, y:  -80, z: 200 },
+            scale:           12,
+            mobileScale:     7,
+            rotationSpeed:   { x: 0.05, y: 0.04 },
+            mouseInfluence:  0.002,
+            hoverSpin:       { x: 0.0002,   y: 0.0006 },
+            modelPath:       'models/porfolio crystal3.glb',
         },
 
-        /* Matériau verre */
+        /* ── Matériau verre ── */
         material: {
             metalness:       0,
             roughness:       0,
@@ -1080,32 +1104,45 @@
             envMapIntensity: 3
         },
 
-        /* HDRI */
-        hdriPath: 'images/ferndale_studio_12_4k.hdr',
-
-        /* Rendu */
-        toneMapping:         null, /* sera défini après chargement Three */
+        hdriPath:            'images/ferndale_studio_12_4k.hdr',
+        toneMapping:         null,
         toneMappingExposure: 1
     };
 
 
     /* ============================================
-       THREE.JS SCENE — optimisé pour les performances
+       THREE.JS SCENE
+       ─────────────────────────────────────────────
+       NOUVELLES FEATURES :
+         • Direction de la souris → spin correspondant (bouger gauche = tourne à gauche)
+         • Grab : cliquer-glisser un cristal pour le déplacer dans une zone limitée
+         • Momentum / inertie : tout ralentit progressivement, rien ne s'arrête net
+         • Fade-out : chaque mouvement a une décélération fluide
        ============================================ */
     class ThreeScene {
         constructor(config) {
             if (!config.enabled) return;
             this.config      = config;
-            this.mouse       = { x: 0, y: 0 };   /* position lissée */
-            this.rawMouse    = { x: 0, y: 0 };   /* position brute des events */
             this.backObjects = [];
             this.frontObject = null;
 
-            /* Compteur pour la barre de progression */
+            /* ── Souris — position et vitesse ── */
+            this.mouse       = { x: 0, y: 0 };      /* position lissée */
+            this.rawMouse    = { x: 0, y: 0 };       /* position brute */
+            this.mouseDelta  = { x: 0, y: 0 };       /* déplacement frame courante */
+            this.prevRaw     = { x: 0, y: 0 };       /* position frame précédente */
+            this.mouseSpeed  = { x: 0, y: 0 };       /* vitesse avec inertie */
+
+            /* ── Drag (grab) ── */
+            this.dragObj     = null;   /* objet en cours de drag */
+            this.dragStart   = { x: 0, y: 0 };       /* position souris au début du drag */
+            this.dragObjStart= { x: 0, y: 0 };       /* position objet au début du drag */
+
+            /* ── Chargement ── */
             this.loadedCount = 0;
             this.totalModels = config.backCubes.length + 1;
 
-            /* PERF: pause le RAF quand l'onglet est masqué */
+            /* PERF: pause RAF quand onglet masqué */
             this._rafId   = null;
             this._visible = true;
             document.addEventListener('visibilitychange', () => {
@@ -1122,9 +1159,7 @@
                 }, { threshold: 0 }).observe(heroEl);
             }
 
-            /* Attendre que Three.js soit chargé (scripts defer) */
             this._waitForThree(() => {
-                /* Appliquer le tone mapping après chargement */
                 config.toneMapping = THREE.ACESFilmicToneMapping;
                 this.initBackScene();
                 this.initFrontScene();
@@ -1135,13 +1170,11 @@
             });
         }
 
-        /* Attendre que window.THREE soit disponible */
         _waitForThree(cb) {
             if (window.THREE) { cb(); return; }
             setTimeout(() => this._waitForThree(cb), 50);
         }
 
-        /* Crée un renderer WebGL */
         createRenderer(canvasId) {
             const renderer = new THREE.WebGLRenderer({
                 canvas:          document.getElementById(canvasId),
@@ -1149,21 +1182,17 @@
                 antialias:       true,
                 powerPreference: 'high-performance'
             });
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            renderer.setSize(w, h);
-            /* PERF: cap pixel ratio à 2 (économise ~55% GPU sur Retina 3×) */
+            renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.toneMapping         = this.config.toneMapping;
             renderer.toneMappingExposure = this.config.toneMappingExposure;
             return renderer;
         }
 
-        /* Crée une caméra perspective */
         createCamera() {
             const isMobile = window.innerWidth < 768;
             const cam = new THREE.PerspectiveCamera(
-                isMobile ? 90 : 75,  /* FOV plus large sur mobile */
+                isMobile ? 90 : 75,
                 window.innerWidth / window.innerHeight,
                 0.1, 2000
             );
@@ -1183,7 +1212,6 @@
             this.frontRenderer = this.createRenderer('three-canvas-front');
         }
 
-        /* Éclairage HDRI */
         addLighting() {
             const pmremBack  = new THREE.PMREMGenerator(this.backRenderer);
             const pmremFront = new THREE.PMREMGenerator(this.frontRenderer);
@@ -1209,18 +1237,14 @@
                     }
                 );
 
-            /* Lumière ambiante de secours pendant le chargement HDRI */
             this.backScene.add(new THREE.AmbientLight(0xffffff, 0.6));
             this.frontScene.add(new THREE.AmbientLight(0xffffff, 0.6));
         }
 
-        /* Charge un GLB et applique le matériau verre */
         loadModel(modelCfg, onLoaded) {
-            /* Sur mobile, réduire la taille des objets */
             const isMobile = window.innerWidth < 768;
-            const scaleFactor = isMobile ? 0.5 : 1;
+            const loader   = new THREE.GLTFLoader();
 
-            const loader = new THREE.GLTFLoader();
             loader.load(
                 modelCfg.modelPath,
                 (gltf) => {
@@ -1232,7 +1256,6 @@
                             const originalMap      = child.material.map;
                             const originalNormal   = child.material.normalMap;
                             const originalEmissive = child.material.emissiveMap;
-
                             child.material = new THREE.MeshPhysicalMaterial({
                                 map:               originalMap,
                                 normalMap:         originalNormal,
@@ -1252,16 +1275,32 @@
                         }
                     });
 
-                    /* Position : adapter pour mobile */
-                    const pos = modelCfg.position;
-                    object.position.set(
-                        pos.x * scaleFactor,
-                        pos.y * scaleFactor,
-                        pos.z
-                    );
-                    const s = (modelCfg.scale || 1) * scaleFactor;
+                    /* Position et scale selon device */
+                    const pos = (isMobile && modelCfg.mobilePosition)
+                        ? modelCfg.mobilePosition
+                        : modelCfg.position;
+                    const s = isMobile
+                        ? (modelCfg.mobileScale || modelCfg.scale * 0.5)
+                        : modelCfg.scale;
+
+                    object.position.set(pos.x, pos.y, pos.z);
                     object.scale.set(s, s, s);
-                    object.userData = modelCfg;
+
+                    /* État physique par objet */
+                    object.userData           = modelCfg;
+                    object.userData.restPos   = { x: pos.x, y: pos.y };    /* position de repos */
+                    object.userData.dragOffset= { x: 0,     y: 0 };        /* décalage drag actuel */
+                    object.userData.isHovered = false;
+                    object.userData.isDragged = false;
+
+                    /* Vélocité de rotation — inertie indépendante par cristal */
+                    object.userData.rotVel    = {
+                        x: modelCfg.rotationSpeed.x,
+                        y: modelCfg.rotationSpeed.y
+                    };
+                    /* Vélocité de position — pour le momentum après release */
+                    object.userData.posVel    = { x: 0, y: 0 };
+
                     onLoaded(object);
 
                     this.loadedCount++;
@@ -1300,22 +1339,162 @@
             });
         }
 
+        /* Retourne tous les cristaux dans un tableau */
+        _allObjects() {
+            return [...this.backObjects, ...(this.frontObject ? [this.frontObject] : [])];
+        }
+
+        /* Raycasting — met à jour isHovered sur chaque cristal */
+        _updateHover() {
+            if (!window.THREE) return;
+            const raycaster = new THREE.Raycaster();
+            const mouseVec  = new THREE.Vector2(this.rawMouse.x, this.rawMouse.y);
+
+            raycaster.setFromCamera(mouseVec, this.backCamera);
+            this.backObjects.forEach(obj => {
+                obj.userData.isHovered = raycaster.intersectObject(obj, true).length > 0;
+            });
+
+            if (this.frontObject) {
+                raycaster.setFromCamera(mouseVec, this.frontCamera);
+                this.frontObject.userData.isHovered =
+                    raycaster.intersectObject(this.frontObject, true).length > 0;
+            }
+        }
+
+        /* Retourne le cristal sous le curseur (ou null) */
+        _getHoveredObject() {
+            return this._allObjects().find(o => o.userData.isHovered) || null;
+        }
+
         addEventListeners() {
-            /* PERF: stocke la position brute, lisse dans RAF */
+            /* ── MouseMove : position + delta + hover ── */
             document.addEventListener('mousemove', (e) => {
-                this.rawMouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
-                this.rawMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+                const nx =  (e.clientX / window.innerWidth)  * 2 - 1;
+                const ny = -(e.clientY / window.innerHeight) * 2 + 1;
+
+                /* Delta frame = direction instantanée de la souris */
+                this.mouseDelta.x = nx - this.prevRaw.x;
+                this.mouseDelta.y = ny - this.prevRaw.y;
+                this.prevRaw.x    = nx;
+                this.prevRaw.y    = ny;
+                this.rawMouse.x   = nx;
+                this.rawMouse.y   = ny;
+
+                /* Drag en cours — déplacer l'objet grabé */
+                if (this.dragObj) {
+                    const cfg    = this.dragObj.userData;
+                    const rest   = cfg.restPos;
+                    const LIMIT  = 150;   /* rayon max de déplacement en unités 3D */
+
+                    /* Convertir delta souris → déplacement 3D */
+                    const dx = this.mouseDelta.x * window.innerWidth  * 0.5;
+                    const dy = this.mouseDelta.y * window.innerHeight * 0.5;
+
+                    cfg.dragOffset.x += dx;
+                    cfg.dragOffset.y += dy;
+
+                    /* Clamp dans la zone autorisée */
+                    const dist = Math.sqrt(cfg.dragOffset.x ** 2 + cfg.dragOffset.y ** 2);
+                    if (dist > LIMIT) {
+                        cfg.dragOffset.x = (cfg.dragOffset.x / dist) * LIMIT;
+                        cfg.dragOffset.y = (cfg.dragOffset.y / dist) * LIMIT;
+                    }
+
+                    /* Vélocité de position = direction du drag (pour l'inertie au release) */
+                    cfg.posVel.x = dx * 0.4;
+                    cfg.posVel.y = dy * 0.4;
+
+                    /* Spin additionnel pendant le drag (proportionnel à la vitesse) */
+                    cfg.rotVel.x += -dy * 0.0008;
+                    cfg.rotVel.y +=  dx * 0.0008;
+                } else {
+                    /* Hover : met à jour isHovered */
+                    this._updateHover();
+                }
             }, { passive: true });
 
-            /* Gyroscope sur mobile (optionnel) */
+            /* ── MouseDown : démarrer le grab ── */
+            document.addEventListener('mousedown', (e) => {
+                if (e.button !== 0) return;
+                this._updateHover();
+                const hit = this._getHoveredObject();
+                if (hit) {
+                    this.dragObj = hit;
+                    hit.userData.isDragged = true;
+                    /* Curseur grab */
+                    document.body.style.cursor = 'grabbing';
+                    e.preventDefault();
+                }
+            });
+
+            /* ── MouseUp : relâcher avec momentum ── */
+            document.addEventListener('mouseup', () => {
+                if (this.dragObj) {
+                    this.dragObj.userData.isDragged = false;
+                    /* L'inertie de position (posVel) continue dans animateObject */
+                    this.dragObj = null;
+                    document.body.style.cursor = '';
+                }
+            });
+
+            /* ── Touch : grab sur mobile ── */
+            document.addEventListener('touchstart', (e) => {
+                if (e.touches.length !== 1) return;
+                const t  = e.touches[0];
+                this.rawMouse.x =  (t.clientX / window.innerWidth)  * 2 - 1;
+                this.rawMouse.y = -(t.clientY / window.innerHeight) * 2 + 1;
+                this.prevRaw.x  = this.rawMouse.x;
+                this.prevRaw.y  = this.rawMouse.y;
+                this._updateHover();
+                const hit = this._getHoveredObject();
+                if (hit) { this.dragObj = hit; hit.userData.isDragged = true; }
+            }, { passive: true });
+
+            document.addEventListener('touchmove', (e) => {
+                if (e.touches.length !== 1) return;
+                const t  = e.touches[0];
+                const nx =  (t.clientX / window.innerWidth)  * 2 - 1;
+                const ny = -(t.clientY / window.innerHeight) * 2 + 1;
+                this.mouseDelta.x = nx - this.prevRaw.x;
+                this.mouseDelta.y = ny - this.prevRaw.y;
+                this.prevRaw.x    = nx;
+                this.prevRaw.y    = ny;
+                this.rawMouse.x   = nx;
+                this.rawMouse.y   = ny;
+
+                if (this.dragObj) {
+                    const cfg   = this.dragObj.userData;
+                    const LIMIT = 150;
+                    const dx    = this.mouseDelta.x * window.innerWidth  * 0.5;
+                    const dy    = this.mouseDelta.y * window.innerHeight * 0.5;
+                    cfg.dragOffset.x += dx;
+                    cfg.dragOffset.y += dy;
+                    const dist = Math.sqrt(cfg.dragOffset.x ** 2 + cfg.dragOffset.y ** 2);
+                    if (dist > LIMIT) {
+                        cfg.dragOffset.x = (cfg.dragOffset.x / dist) * LIMIT;
+                        cfg.dragOffset.y = (cfg.dragOffset.y / dist) * LIMIT;
+                    }
+                    cfg.posVel.x  = dx * 0.4;
+                    cfg.posVel.y  = dy * 0.4;
+                    cfg.rotVel.x += -dy * 0.0008;
+                    cfg.rotVel.y +=  dx * 0.0008;
+                }
+            }, { passive: true });
+
+            document.addEventListener('touchend', () => {
+                if (this.dragObj) { this.dragObj.userData.isDragged = false; this.dragObj = null; }
+            }, { passive: true });
+
+            /* ── Gyroscope mobile ── */
             window.addEventListener('deviceorientation', (e) => {
-                if (e.gamma !== null) {
+                if (e.gamma !== null && !this.dragObj) {
                     this.rawMouse.x = e.gamma / 45;
                     this.rawMouse.y = (e.beta - 45) / 45;
                 }
             }, { passive: true });
 
-            /* Redimensionnement de la fenêtre */
+            /* ── Resize ── */
             window.addEventListener('resize', () => {
                 [
                     { cam: this.backCamera,  renderer: this.backRenderer  },
@@ -1329,26 +1508,101 @@
             }, { passive: true });
         }
 
-        /* Anime un objet 3D (rotation + parallaxe souris) */
+        /* ── Anime un objet — physique complète ──────────────────────
+           Chaque cristal a sa propre vélocité de rotation (rotVel)
+           et de position (posVel). Tout ralentit avec un facteur
+           de friction / amortissement → rien ne s'arrête net.
+           ─────────────────────────────────────────────────────────── */
         animateObject(obj) {
-            const cfg = obj.userData;
-            obj.rotation.x += cfg.rotationSpeed.x;
-            obj.rotation.y += cfg.rotationSpeed.y;
-            obj.position.x += (this.mouse.x * 50 - obj.position.x + cfg.position.x) * cfg.mouseInfluence;
-            obj.position.y += (this.mouse.y * 50 - obj.position.y + cfg.position.y) * cfg.mouseInfluence;
+            const cfg  = obj.userData;
+            const rest = cfg.restPos || cfg.position;
+
+            /* ── Friction / amortissement ──
+               Plus proche de 1 = glisse longtemps
+               0.90 = s'arrête assez vite
+               0.96 = inertie notable                */
+            const ROT_FRICTION = 0.96;   /* amortissement rotation  */
+            const POS_FRICTION = 0.88;   /* amortissement position  */
+
+            /* ── Direction souris → spin ──
+               Le delta de la souris (mouseDelta) influence la rotation.
+               Bouger la souris à droite  → spin Y positif
+               Bouger la souris vers le bas → spin X positif
+               Facteur : ajuste la sensibilité direction → spin       */
+            const DIR_SENSITIVITY = 3.0;
+
+            if (!cfg.isDragged) {
+                /* Contribution de la direction souris */
+                cfg.rotVel.x += -this.mouseDelta.y * DIR_SENSITIVITY * cfg.mouseInfluence;
+                cfg.rotVel.y +=  this.mouseDelta.x * DIR_SENSITIVITY * cfg.mouseInfluence;
+
+                /* Hover spin additionnel */
+                if (cfg.isHovered && cfg.hoverSpin) {
+                    cfg.rotVel.x += cfg.hoverSpin.x;
+                    cfg.rotVel.y += cfg.hoverSpin.y;
+                }
+            }
+
+            /* Appliquer la vélocité de rotation */
+            obj.rotation.x += cfg.rotVel.x;
+            obj.rotation.y += cfg.rotVel.y;
+
+            /* Amortir la rotation (fade-out) */
+            cfg.rotVel.x *= ROT_FRICTION;
+            cfg.rotVel.y *= ROT_FRICTION;
+
+            /* ── Position ──
+               Si draggé  : suit le drag offset
+               Sinon      : retour élastique vers restPos + parallaxe souris  */
+            if (cfg.isDragged) {
+                /* Cible = position de repos + offset drag */
+                const targetX = rest.x + cfg.dragOffset.x;
+                const targetY = rest.y + cfg.dragOffset.y;
+                /* Lerp direct vers la cible pendant le drag */
+                obj.position.x += (targetX - obj.position.x) * 0.25;
+                obj.position.y += (targetY - obj.position.y) * 0.25;
+
+            } else {
+                /* Inertie après release : la vélocité posVel continue,
+                   puis retour élastique vers restPos + parallaxe souris  */
+                const parallaxX = this.mouse.x * 50;
+                const parallaxY = this.mouse.y * 50;
+                const targetX   = rest.x + cfg.dragOffset.x + parallaxX;
+                const targetY   = rest.y + cfg.dragOffset.y + parallaxY;
+
+                /* Appliquer vélocité de position */
+                obj.position.x += cfg.posVel.x;
+                obj.position.y += cfg.posVel.y;
+
+                /* Rappel élastique vers la cible */
+                const SPRING = cfg.mouseInfluence * 0.8;
+                obj.position.x += (targetX - obj.position.x) * SPRING;
+                obj.position.y += (targetY - obj.position.y) * SPRING;
+
+                /* Amortir la vélocité de position */
+                cfg.posVel.x *= POS_FRICTION;
+                cfg.posVel.y *= POS_FRICTION;
+
+                /* Retour progressif du drag offset vers 0 (retour à la maison) */
+                cfg.dragOffset.x *= 0.95;
+                cfg.dragOffset.y *= 0.95;
+            }
         }
 
         animate() {
-            /* PERF: saute la frame si onglet masqué ou hero hors vue */
             if (!this._visible || !this._heroVisible) {
                 this._rafId = requestAnimationFrame(() => this.animate());
                 return;
             }
 
-            /* PERF: lissage souris dans RAF (évite les calculs à 200+ events/sec) */
+            /* Lissage souris global */
             const lerp = 0.08;
             this.mouse.x += (this.rawMouse.x - this.mouse.x) * lerp;
             this.mouse.y += (this.rawMouse.y - this.mouse.y) * lerp;
+
+            /* Amortir le delta souris (fade-out de la direction) */
+            this.mouseDelta.x *= 0.85;
+            this.mouseDelta.y *= 0.85;
 
             this._rafId = requestAnimationFrame(() => this.animate());
             this.backObjects.forEach((obj) => this.animateObject(obj));
@@ -1387,7 +1641,7 @@
        DOWNLOAD CV
        ============================================ */
     function downloadCV() {
-        const cvPath = 'https://drive.google.com/file/d/1iuBHINhkWnyz_Y2aiKumw12C2MDjZRmt/view?usp=drive_link';
+        const cvPath = 'https://drive.google.com/uc?export=download&id=1iuBHINhkWnyz_Y2aiKumw12C2MDjZRmt';
         const link = document.createElement('a');
         link.href = cvPath; link.download = 'YourName_CV.pdf'; link.target = '_blank';
         document.body.appendChild(link);
