@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional portfolio showcasing innovative design and development work.">
+    <meta name="author" content="Your Name">
+    <meta property="og:title" content="2026 Portfolio - Design Beyond the Surface">
+    <meta property="og:type" content="website">
+    <title>2026 Portfolio - Design Beyond the Surface</title>
+
+    <!-- ============================================
+         FONTS — PERF: merged into ONE request (was 2 round-trips)
+         display=swap → text visible immediately with fallback font
+         ============================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+          rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    </noscript>
+
+    <style>
+
+        /* ============================================
+           DESIGN TOKENS — change values here only
+           ============================================ */
+        :root {
+            /* Colors */
+            --bg-solid:           #101010;
+            --primary-color:      #ffffff;
+            --secondary-color:    #ffffff;
+            --accent-color:       #ec4899;
+            --text-primary:       #ffffff;
+            --text-secondary:     #d1d5db;
+            --text-muted:         #9ca3af;
+
+            /* Glass effect */
+            --glass-bg:           rgba(16, 16, 16, 0.7);
+            --glass-border:       rgba(255, 255, 255, 0.498);
+            --glass-blur:         10px;
+            --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.3);
+
+            /* Typography */
+            --font-primary:       'Inter', sans-serif;
+            --font-secondary:     'Kings', cursive;
+            --font-heading:       'Playfair Display', serif;
+            --font-size-xs:       clamp(0.65rem,  1.5vw, 0.75rem);
+            --font-size-sm:       clamp(0.75rem,  2vw,   0.85rem);
+            --font-size-base:     clamp(0.85rem,  2.5vw, 0.95rem);
+            --font-size-lg:       clamp(0.95rem,  3vw,   1.1rem);
+            --font-size-xl:       clamp(1.1rem,   4vw,   1.35rem);
+            --font-size-2xl:      clamp(1.35rem,  5vw,   1.8rem);
+            --font-size-3xl:      clamp(1.6rem,   6vw,   2.2rem);
+            --font-size-hero:     clamp(2.2rem,   7vw,   3.5rem);
+
+            /* Spacing */
+            --space-xs:   0.5rem;
+            --space-sm:   1rem;
+            --space-md:   2rem;
+            --space-lg:   3rem;
+            --space-xl:   4rem;
+            --space-2xl:  6rem;
+            --space-3xl:  8rem;
+
+            /* Layout */
+            --max-width:       1400px;
+            --section-pad-y:   var(--space-2xl);
+            --section-pad-x:   var(--space-md);
+
+            /* Border radius */
+            --radius-sm:   0.5rem;
+            --radius-md:   1rem;
+            --radius-pill: 2rem;
+
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-base: 0.3s ease;
+            --transition-slow: 0.5s ease;
+
+            /* Background images */
+            --hero-bg:   linear-gradient(to bottom, transparent 0%, var(--bg-solid) 100%),
+                         url('./images/Final.png');
+            --footer-bg: linear-gradient(to top, transparent 0%, var(--bg-solid) 100%),
+                         url('./images/Final.png');
+        }
+
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-solid);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Accessibility skip link */
+        .skip-to-main {
+            position: absolute; left: -9999px; z-index: 999;
+            padding: 1rem; background-color: var(--primary-color);
+            color: white; text-decoration: none;
+        }
+        .skip-to-main:focus { left: 50%; transform: translateX(-50%); top: 1rem; }
+
+        /* Font utility classes */
+        .font-primary   { font-family: var(--font-primary); }
+        .font-secondary { font-family: var(--font-secondary); }
+
+
+        /* ============================================
+           GLASS CARD COMPONENT
+           ============================================ */
+        .glass-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 0.1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--glass-shadow);
+            padding: var(--space-md);
+            /* PERF: was 'transition: all' — triggers layout+paint on every property.
+               Scoped to compositor-only properties (transform, opacity, box-shadow). */
+            transition: transform var(--transition-base),
+                        opacity var(--transition-base),
+                        box-shadow var(--transition-base);
+            position: relative;
+            z-index: 5;
+        }
+
+
+        /* ============================================
+           NAVIGATION — sticky, hides on scroll down
+           ============================================ */
+        .nav-header {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: linear-gradient(180deg, rgba(16,16,16,0.48) 0%, rgba(16,16,16,0) 100%);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            padding: var(--space-xs) var(--space-md);
+            transition: transform 0.3s ease;
+        }
+        .nav-header.hidden { transform: translateY(-100%); }
+
+        .nav-header-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-logo { height: fit-content; }
+
+        .nav-menu { display: flex; gap: var(--space-md); list-style: none; }
+        .nav-menu a {
+            color: var(--text-secondary); text-decoration: none;
+            font-size: var(--font-size-base); font-weight: 600;
+            padding: 0.5rem 1rem; border-radius: var(--radius-sm);
+            transition: color var(--transition-fast), background var(--transition-fast);
+            display: block;
+        }
+        .nav-menu a:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+        .nav-menu a:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+
+
+        /* ============================================
+           BUTTON COMPONENT
+           ============================================ */
+        .btn {
+            display: inline-block;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            padding: 0.75rem 2rem;
+            color: var(--text-primary);
+            font-family: var(--font-primary);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            /* PERF: was 'transition: all' — scoped to compositor-friendly props */
+            transition: transform var(--transition-base),
+                        box-shadow var(--transition-base),
+                        background var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            margin-top: var(--space-md);
+            z-index: 10;
+        }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left var(--transition-slow);
+        }
+        .btn:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139,92,246,0.4);
+        }
+        .btn:hover::before { left: 100%; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border: none; }
+        .btn-hero    { margin-top: var(--space-sm); margin-bottom: var(--space-3xl); }
+
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: var(--section-pad-y) var(--section-pad-x);
+            background: var(--hero-bg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: visible;
+        }
+
+        /* Three.js canvas — behind content (z-index: 1) */
+        #three-canvas {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+
+        /* Three.js canvas — in front of glass card (z-index: 100) */
+        #three-canvas-front {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 100;
+        }
+
+        /* ── Atmosphere image overlay ──────────────────
+           Sits above EVERYTHING in the hero.
+           pointer-events: none  →  fully click-through.
+           Adjust opacity & mix-blend-mode to taste:
+             mix-blend-mode options: screen | overlay | soft-light | lighten | multiply
+           ─────────────────────────────────────────── */
+        .hero-atmosphere {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url('./images/atmosphere.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            pointer-events: none;     /* click-through */
+            z-index: 200;             /* above front canvas (100) and glass card (5) */
+            opacity: 1;               /* 0–1: lower = more subtle */
+            mix-blend-mode: lighten;   /* try: screen, overlay, soft-light, lighten */
+        }
+
+        /* Hero text — must be above atmosphere overlay */
+        .hero-title {
+            font-size: var(--font-size-hero); font-weight: 700;
+            margin-bottom: var(--space-sm);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            line-height: 1.1;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+            position: relative; z-index: 300;
+        }
+
+        /* "Explore" button — above atmosphere */
+        .btn-hero { position: relative; z-index: 300; }
+
+        .hero-content {
+            max-width: 900px; padding: 80px;
+            position: relative; z-index: 200; /* above atmosphere */
+        }
+        .hero-subtitle {
+            font-family: var(--font-heading); font-size: var(--font-size-2xl);
+            font-style: italic; margin-bottom: var(--space-md);
+            color: var(--text-primary); text-align: left;
+        }
+        .hero-description {
+            font-size: var(--font-size-lg); color: var(--text-secondary);
+            margin-bottom: var(--space-lg); line-height: 1.8; text-align: left;
+        }
+
+
+        /* ============================================
+           CONTENT SECTIONS
+           ============================================ */
+        .content-section {
+            position: relative; z-index: 2;
+            padding: var(--section-pad-y) var(--section-pad-x);
+            background-color: var(--bg-solid);
+        }
+        .section-inner { max-width: var(--max-width); margin: 0 auto; }
+        .section-title {
+            font-family: var(--font-heading); font-size: var(--font-size-3xl);
+            font-weight: 700; text-align: center; margin-bottom: var(--space-xl);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+        }
+
+
+        /* ============================================
+           INFINITE SCROLL BAND
+           ============================================ */
+        .scroll-band {
+            overflow: hidden; padding: var(--space-md) 0;
+            margin: var(--space-xl) 0; position: relative;
+        }
+        .scroll-band::before,
+        .scroll-band::after {
+            content: ''; position: absolute; top: 0;
+            width: 100px; height: 100%; z-index: 2; pointer-events: none;
+        }
+        .scroll-band::before { left: 0;  background: linear-gradient(to right, var(--bg-solid), transparent); }
+        .scroll-band::after  { right: 0; background: linear-gradient(to left,  var(--bg-solid), transparent); }
+
+        .scroll-content         { display: flex; animation: scrollLeft 30s linear infinite; width: fit-content; will-change: transform; }
+        .scroll-content.reverse { animation-direction: reverse; }
+
+        .scroll-item {
+            /* PERF: removed backdrop-filter: blur from each item.
+               12 blurring animated elements = major GPU overdraw every frame.
+               Visual preserved via opaque-enough background color. */
+            background: rgba(28, 28, 28, 0.92);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            padding: 1rem 2.5rem; margin: 0 1rem;
+            white-space: nowrap; font-size: var(--font-size-lg); font-weight: 600;
+        }
+        @keyframes scrollLeft {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+
+        /* ============================================
+           CARD GRID
+           ============================================ */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-md); margin-top: var(--space-lg);
+        }
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: var(--space-lg);
+            /* PERF: was 'transition: all' — scoped to transform+box-shadow only.
+               will-change promotes to its own compositor layer → zero-jank hover. */
+            transition: transform var(--transition-base),
+                        box-shadow var(--transition-base),
+                        background var(--transition-base);
+            will-change: transform;
+            background-size: cover;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 15px 40px rgba(139,92,246,0.3);
+        }
+        #card1 { background-image: url('./images/Final.png'); }
+        #card2 { background-image: url('./images/Final.png'); }
+        #card3 { background-image: url('./images/Final.png'); }
+
+
+        /* ============================================
+           VALUES SECTION
+           ============================================ */
+        #values-section .glass-container { padding: var(--space-xl); margin-bottom: var(--space-xl); }
+        #values-section .glass-title     { font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: var(--space-md); }
+        #values-section .glass-text      { color: var(--text-secondary); line-height: 1.8; font-size: var(--font-size-base); }
+
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        .about-container {
+            display: grid; grid-template-columns: 300px 1fr;
+            gap: var(--space-xl); align-items: center;
+        }
+        .profile-image {
+            width: 100%; height: 300px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--radius-md); border: 1px solid var(--glass-border);
+        }
+        .about-content h3 { font-size: var(--font-size-2xl); font-weight: 700; margin-bottom: var(--space-md); }
+        .about-content p  { color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-md); font-size: var(--font-size-base); }
+
+
+        /* ============================================
+           DOWNLOAD CV SECTION
+           ============================================ */
+        .download-section {
+            text-align: center;
+            padding: var(--space-2xl) var(--section-pad-x);
+            background-color: var(--bg-solid);
+        }
+        .download-btn { font-size: var(--font-size-base); padding: 1rem 2.5rem; }
+
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            position: relative; z-index: 2;
+            background: var(--footer-bg);
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            border-top: 1px solid var(--glass-border);
+            padding: var(--space-2xl) var(--section-pad-x) var(--space-lg);
+        }
+        .footer-content {
+            max-width: var(--max-width); margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-xl); margin-bottom: var(--space-xl);
+        }
+        .footer-section h3 { font-size: var(--font-size-lg); font-weight: 700; margin-bottom: var(--space-md); color: var(--primary-color); }
+        .footer-section a  { color: var(--text-secondary); text-decoration: none; display: block; margin: var(--space-xs) 0; transition: color var(--transition-fast); font-size: var(--font-size-base); }
+        .footer-section a:hover { color: var(--text-primary); }
+        .copyright { text-align: center; padding-top: var(--space-lg); border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: var(--font-size-sm); }
+
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            :root { --section-pad-y: var(--space-lg); --section-pad-x: var(--space-sm); }
+            .about-container { grid-template-columns: 1fr; }
+            .grid            { grid-template-columns: 1fr; }
+            .nav-menu        { gap: var(--space-xs); }
+            .nav-menu a      { padding: 0.5rem; font-size: var(--font-size-sm); }
+            .hero-content    { padding: var(--space-md); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        @media print {
+            .download-section, #three-canvas, #three-canvas-front, .hero-atmosphere { display: none; }
+        }
+
+
+        /* ============================================
+           LOADING SCREEN
+           — Shown until Three.js + all GLB models are ready.
+           — Fades out automatically; removed from DOM after transition.
+           ============================================ */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: var(--bg-solid);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-lg);
+            /* Fade-out triggered by JS adding .loaded class */
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loading-screen.loaded {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Logo — same image as nav, slightly larger */
+        .loading-logo {
+            width: clamp(60px, 12vw, 120px);
+            opacity: 0.9;
+            /* Gentle pulse so the visitor knows something is happening */
+            animation: loadingPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1);    }
+            50%       { opacity: 1;   transform: scale(1.05); }
+        }
+
+        /* Progress bar */
+        .loading-bar-track {
+            width: clamp(140px, 30vw, 280px);
+            height: 2px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .loading-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: rgba(255,255,255,0.7);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        /* Small status label */
+        .loading-label {
+            font-family: var(--font-primary);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+    <!-- ============================================
+         LOADING SCREEN
+         Displayed until Three.js scene (models + HDRI) is ready.
+         JS will call window.dismissLoader() once everything is loaded.
+         The logo src mirrors the nav logo — update both if you change the logo.
+         ============================================ -->
+    <div id="loading-screen" role="status" aria-live="polite" aria-label="Loading portfolio">
+        <img src="./images/Icon Xs.png"
+             class="loading-logo"
+             alt="Portfolio logo"
+             width="120" height="120">
+        <div class="loading-bar-track">
+            <div class="loading-bar-fill" id="loading-bar"></div>
+        </div>
+        <span class="loading-label" id="loading-label">Loading…</span>
+    </div>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="nav-header" id="nav-header" role="navigation" aria-label="Main navigation">
+        <div class="nav-header-inner">
+            <img src="./images/Icon Xs.png" class="nav-logo" alt="Logo">
+            <ul class="nav-menu">
+                <li><a href="#values-section">Values</a></li>
+                <li><a href="#about-section">About</a></li>
+                <li><a href="#skills-section">Skills</a></li>
+                <li><a href="#download">CV</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- ============================================
+         HERO SECTION
+         Layer order (bottom → top):
+           1. Hero background image       (CSS background)
+           2. #three-canvas               (z-index: 1)
+           3. Hero text / button          (z-index: 10 / 300)
+           4. .hero-content glass card    (z-index: 300)
+           5. #three-canvas-front         (z-index: 100)
+           6. .hero-atmosphere            (z-index: 200, pointer-events: none)
+         ============================================ -->
+    <section class="hero" id="hero" role="banner">
+
+        <canvas id="three-canvas" aria-hidden="true"></canvas>
+
+        <h1 class="hero-title">
+            <span class="font-primary">2026 </span>
+            <span class="font-secondary">Portfolio</span>
+        </h1>
+
+        <a href="#values-section" class="btn btn-hero" aria-label="Explore my work">Explore My Work</a>
+
+        <div class="hero-content glass-container">
+            <p class="hero-subtitle">
+                <span class="font-primary">Design that goes beyond the </span>
+                <em><span class="font-secondary">surface</span></em>.
+            </p>
+            <p class="hero-description">
+                Creating meaningful digital experiences that blend creativity with functionality.
+                Pushing boundaries and exploring new possibilities in design.
+            </p>
+        </div>
+
+        <canvas id="three-canvas-front" aria-hidden="true"></canvas>
+
+        <!-- Atmosphere overlay — above everything, fully click-through -->
+        <div class="hero-atmosphere" aria-hidden="true"></div>
+
+    </section>
+
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main id="main-content">
+
+        <!-- VALUES -->
+        <section class="content-section" id="values-section" aria-labelledby="values-title">
+            <div class="section-inner">
+                <h2 class="section-title" id="values-title"><span class="font-primary">My Values</span></h2>
+
+                <div class="scroll-band" aria-hidden="true">
+                    <div class="scroll-content">
+                        <span class="scroll-item">Innovation</span>
+                        <span class="scroll-item">Excellence</span>
+                        <span class="scroll-item">Integrity</span>
+                        <span class="scroll-item">Collaboration</span>
+                        <span class="scroll-item">Growth</span>
+                        <span class="scroll-item">Creativity</span>
+                        <span class="scroll-item">Innovation</span>
+                        <span class="scroll-item">Excellence</span>
+                        <span class="scroll-item">Integrity</span>
+                        <span class="scroll-item">Collaboration</span>
+                        <span class="scroll-item">Growth</span>
+                        <span class="scroll-item">Creativity</span>
+                    </div>
+                </div>
+
+                <div class="glass-container">
+                    <h3 class="glass-title"><span class="font-primary">My Work</span></h3>
+                    <p class="glass-text">
+                        I believe in creating designs that not only look beautiful but serve a purpose.
+                        Every project is an opportunity to solve problems creatively and make a lasting impact.
+                        My approach combines technical expertise with artistic vision to deliver exceptional results.
+                    </p>
+                </div>
+
+                <div class="grid">
+                    <article class="card" id="card1">
+                        <h3 class="card-title">User-Centered</h3>
+                        <img class="card-img" src="./images/Icon.png" alt="User-Centered icon">
+                    </article>
+                    <article class="card" id="card2">
+                        <h3 class="card-title">Detail-Oriented</h3>
+                        <img class="card-img" src="./images/Icon.png" alt="Detail-Oriented icon">
+                    </article>
+                    <article class="card" id="card3">
+                        <h3 class="card-title">Future-Focused</h3>
+                        <img class="card-img" src="./images/Icon.png" alt="Future-Focused icon">
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="content-section" id="about-section" aria-labelledby="about-title">
+            <div class="section-inner">
+                <h2 class="section-title" id="about-title"><span class="font-primary">About Me</span></h2>
+                <div class="about-container glass-container">
+                    <div class="profile-image" role="img" aria-label="Profile photo"></div>
+                    <div class="about-content">
+                        <h3>Hello, I'm [Your Name]</h3>
+                        <p>I'm a passionate designer and developer dedicated to creating exceptional digital experiences. With a blend of creativity and technical expertise, I transform ideas into reality.</p>
+                        <p>My journey in design has been driven by curiosity and a commitment to continuous learning. I thrive on challenges and am always exploring new ways to push creative boundaries.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section class="content-section" id="skills-section" aria-labelledby="skills-title">
+            <div class="section-inner">
+                <h2 class="section-title" id="skills-title"><span class="font-primary">My Skills</span></h2>
+
+                <div class="scroll-band" aria-hidden="true">
+                    <div class="scroll-content reverse">
+                        <span class="scroll-item">UI/UX Design</span>
+                        <span class="scroll-item">Web Development</span>
+                        <span class="scroll-item">Graphic Design</span>
+                        <span class="scroll-item">Prototyping</span>
+                        <span class="scroll-item">Branding</span>
+                        <span class="scroll-item">Animation</span>
+                        <span class="scroll-item">UI/UX Design</span>
+                        <span class="scroll-item">Web Development</span>
+                        <span class="scroll-item">Graphic Design</span>
+                        <span class="scroll-item">Prototyping</span>
+                        <span class="scroll-item">Branding</span>
+                        <span class="scroll-item">Animation</span>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <article class="card">
+                        <h3 class="card-title">Design</h3>
+                        <p class="card-text">Figma, Adobe XD, Sketch, Photoshop, Illustrator</p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card-title">Development</h3>
+                        <p class="card-text">HTML, CSS, JavaScript, React, Vue, Node.js</p>
+                    </article>
+                    <article class="card">
+                        <h3 class="card-title">Tools</h3>
+                        <p class="card-text">Git, Webpack, VS Code, Notion, Jira</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOWNLOAD CV -->
+        <section class="download-section" id="download" aria-labelledby="download-title">
+            <h2 class="section-title" id="download-title">Download My CV</h2>
+            <button class="btn btn-primary download-btn" onclick="downloadCV()" aria-label="Download CV in PDF format">
+                📄 Download CV (PDF)
+            </button>
+        </section>
+
+    </main>
+
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <a href="/cdn-cgi/l/email-protection#463f29333468232b272f2a06233e272b362a236825292b"><span class="__cf_email__" data-cfemail="61180e14134f040c00080d210419000c110d044f020e0c">[email&#160;protected]</span></a>
+                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
+                    123 Design Street<br>Creative City, CC 12345
+                </address>
+            </div>
+            <div class="footer-section">
+                <h3>Social Media</h3>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer">Dribbble</a>
+                <a href="https://behance.net" target="_blank" rel="noopener noreferrer">Behance</a>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#values-section">My Values</a>
+                <a href="#about-section">About Me</a>
+                <a href="#skills-section">Skills</a>
+                <a href="#download">Download CV</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 Your Name. All rights reserved. Designed with passion and precision.</p>
+        </div>
+    </footer>
+
+
+    <!-- ============================================
+         THREE.JS LIBRARIES — loaded ASYNC (non-blocking)
+         PERF: was 3 synchronous <script> tags that blocked HTML parsing.
+         Now loaded with defer so the browser can parse + render the page
+         while scripts download in parallel.
+         ============================================ -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+
+    <script>
+    /* ============================================
+       LOADING SCREEN CONTROLLER
+       — Tracks asset progress; dismisses overlay once ready.
+       — Falls back to a 6-second timeout so it never hangs forever.
+       ============================================ */
+    (function () {
+        const screen  = document.getElementById('loading-screen');
+        const bar     = document.getElementById('loading-bar');
+        const label   = document.getElementById('loading-label');
+
+        let progress  = 0;  // 0–100
+
+        /* Called by ThreeScene as each asset loads */
+        window.setLoadProgress = function (pct, text) {
+            progress = Math.min(pct, 100);
+            bar.style.width = progress + '%';
+            if (text) label.textContent = text;
+        };
+
+        /* Called once everything is ready */
+        window.dismissLoader = function () {
+            screen.classList.add('loaded');
+            /* Remove from DOM after fade so it doesn't block interactions */
+            screen.addEventListener('transitionend', () => screen.remove(), { once: true });
+        };
+
+        /* Hard timeout: never leave the visitor stuck */
+        setTimeout(() => window.dismissLoader(), 6000);
+    })();
+
+
+    /* ============================================
+       THREE.JS CONFIGURATION
+       — The only place you need to edit for 3D changes —
+       ============================================ */
+    const THREE_CONFIG = {
+        enabled: true,
+
+        // ── Back objects (render behind the glass card) ──────────────
+        backCubes: [
+            {
+                position:       { x: -300, y: 100,  z: -50 },
+                rotationSpeed:  { x: 0.002, y: 0.003 },
+                mouseInfluence: 0.02,
+                modelPath:      'models/porfolio crystal.glb',
+                scale:          20
+            },
+            {
+                position:       { x: 300,  y: -80,  z: -50 },
+                rotationSpeed:  { x: 0.003, y: 0.002 },
+                mouseInfluence: 0.003,
+                modelPath:      'models/porfolio crystal.glb',
+                scale:          20
+            }
+        ],
+
+        // ── Front object (renders in front of the glass card) ────────
+        frontCube: {
+            position:       { x: -250, y: -150, z: 300 },
+            rotationSpeed:  { x: 0.0005, y: 0.004 },
+            mouseInfluence: 0.004,
+            modelPath:      'models/porfolio crystal.glb',
+            scale:          7
+        },
+
+        // ── Glass material ────────────────────────────────────────────
+        material: {
+            metalness:       0,
+            roughness:       0,
+            transparent:     true,
+            opacity:         1,
+            transmission:    0.5,
+            thickness:       2,
+            ior:             2.5,
+            envMapIntensity: 3
+        },
+
+        // ── HDRI lighting ─────────────────────────────────────────────
+        hdriPath: 'images/ferndale_studio_12_4k.hdr',
+
+        // ── Renderer ──────────────────────────────────────────────────
+        toneMapping:         THREE.ACESFilmicToneMapping,
+        toneMappingExposure: 1
+    };
+
+
+    /* ============================================
+       THREE.JS SCENE CLASS — performance-optimised
+       ============================================ */
+    class ThreeScene {
+        constructor(config) {
+            if (!config.enabled) return;
+            this.config      = config;
+            this.mouse       = { x: 0, y: 0 };   // smoothed target
+            this.rawMouse    = { x: 0, y: 0 };   // raw from events
+            this.backObjects = [];
+            this.frontObject = null;
+
+            /* Track how many of the 3 assets (2 back + 1 front) have loaded */
+            this.loadedCount  = 0;
+            this.totalModels  = config.backCubes.length + 1; // +1 for frontCube
+
+            /* PERF: visibility — pause RAF when tab is hidden */
+            this._rafId    = null;
+            this._visible  = true;
+            document.addEventListener('visibilitychange', () => {
+                this._visible = !document.hidden;
+                if (this._visible && this._rafId === null) this.animate();
+            });
+
+            /* PERF: only render when hero is in view (IntersectionObserver) */
+            this._heroVisible = true;
+            const heroEl = document.getElementById('hero');
+            if (heroEl && 'IntersectionObserver' in window) {
+                new IntersectionObserver((entries) => {
+                    this._heroVisible = entries[0].isIntersecting;
+                }, { threshold: 0 }).observe(heroEl);
+            }
+
+            this.initBackScene();
+            this.initFrontScene();
+            this.addLighting();
+            this.loadAllModels();
+            this.addEventListeners();
+            this.animate();
+        }
+
+        /* — Shared renderer factory — */
+        createRenderer(canvasId) {
+            const renderer = new THREE.WebGLRenderer({
+                canvas:    document.getElementById(canvasId),
+                alpha:     true,
+                antialias: true,
+                /* PERF: powerPreference → hint to GPU driver to use discrete GPU
+                         but stay in low-power mode when possible */
+                powerPreference: 'high-performance'
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            /* PERF: cap pixel ratio at 2 — on 3× Retina this cuts GPU work by 55% */
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.toneMapping         = this.config.toneMapping;
+            renderer.toneMappingExposure = this.config.toneMappingExposure;
+            return renderer;
+        }
+
+        /* — Shared camera factory — */
+        createCamera() {
+            const cam = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+            cam.position.z = 500;
+            return cam;
+        }
+
+        initBackScene() {
+            this.backScene    = new THREE.Scene();
+            this.backCamera   = this.createCamera();
+            this.backRenderer = this.createRenderer('three-canvas');
+        }
+
+        initFrontScene() {
+            this.frontScene    = new THREE.Scene();
+            this.frontCamera   = this.createCamera();
+            this.frontRenderer = this.createRenderer('three-canvas-front');
+        }
+
+        /* — HDRI lighting — */
+        addLighting() {
+            const pmremBack  = new THREE.PMREMGenerator(this.backRenderer);
+            const pmremFront = new THREE.PMREMGenerator(this.frontRenderer);
+            pmremBack.compileEquirectangularShader();
+            pmremFront.compileEquirectangularShader();
+
+            window.setLoadProgress(10, 'Loading environment…');
+
+            new THREE.RGBELoader()
+                .setDataType(THREE.UnsignedByteType)
+                .load(
+                    this.config.hdriPath,
+                    (texture) => {
+                        this.backScene.environment  = pmremBack.fromEquirectangular(texture).texture;
+                        this.frontScene.environment = pmremFront.fromEquirectangular(texture).texture;
+                        texture.dispose();
+                        pmremBack.dispose();
+                        pmremFront.dispose();
+                        window.setLoadProgress(30, 'Environment ready…');
+                    },
+                    undefined,
+                    (err) => {
+                        console.error('HDRI failed:', err);
+                        window.setLoadProgress(30, 'Loading models…');
+                    }
+                );
+
+            this.backScene.add(new THREE.AmbientLight(0xffffff, 0.6));
+            this.frontScene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        }
+
+        /* — Load a single GLB — */
+        loadModel(modelCfg, onLoaded) {
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                modelCfg.modelPath,
+                (gltf) => {
+                    const object = gltf.scene;
+                    const mat    = this.config.material;
+
+                    object.traverse((child) => {
+                        if (child.isMesh) {
+                            const originalMap      = child.material.map;
+                            const originalNormal   = child.material.normalMap;
+                            const originalEmissive = child.material.emissiveMap;
+
+                            child.material = new THREE.MeshPhysicalMaterial({
+                                map:               originalMap,
+                                normalMap:         originalNormal,
+                                emissiveMap:       originalEmissive,
+                                emissive:          originalEmissive ? new THREE.Color(0xffffff) : undefined,
+                                emissiveIntensity: 1,
+                                metalness:         mat.metalness,
+                                roughness:         mat.roughness,
+                                transparent:       mat.transparent,
+                                opacity:           mat.opacity,
+                                transmission:      mat.transmission,
+                                thickness:         mat.thickness,
+                                ior:               mat.ior,
+                                envMapIntensity:   mat.envMapIntensity,
+                                side:              THREE.DoubleSide
+                            });
+                        }
+                    });
+
+                    object.position.set(modelCfg.position.x, modelCfg.position.y, modelCfg.position.z);
+                    const s = modelCfg.scale || 1;
+                    object.scale.set(s, s, s);
+                    object.userData = modelCfg;
+                    onLoaded(object);
+
+                    /* Update progress bar per model loaded */
+                    this.loadedCount++;
+                    const pct = 30 + Math.round((this.loadedCount / this.totalModels) * 70);
+                    window.setLoadProgress(pct, this.loadedCount < this.totalModels ? 'Loading models…' : 'Done!');
+                    if (this.loadedCount >= this.totalModels) window.dismissLoader();
+                },
+                (xhr) => {
+                    if (xhr.total) {
+                        /* Per-model sub-progress (within the 30–100 range) */
+                        const base = 30 + Math.round((this.loadedCount / this.totalModels) * 70);
+                        const sub  = Math.round((xhr.loaded / xhr.total) * (70 / this.totalModels));
+                        window.setLoadProgress(base + sub);
+                    }
+                },
+                (err) => {
+                    console.error('Model load failed:', err);
+                    console.warn('Use Live Server in VS Code — not file://');
+                    /* Don't leave visitor stuck if a model fails */
+                    this.loadedCount++;
+                    if (this.loadedCount >= this.totalModels) window.dismissLoader();
+                }
+            );
+        }
+
+        loadAllModels() {
+            this.config.backCubes.forEach((cfg) => {
+                this.loadModel(cfg, (obj) => {
+                    this.backScene.add(obj);
+                    this.backObjects.push(obj);
+                });
+            });
+            this.loadModel(this.config.frontCube, (obj) => {
+                this.frontScene.add(obj);
+                this.frontObject = obj;
+            });
+        }
+
+        /* — Mouse + resize listeners — */
+        addEventListeners() {
+            /* PERF: mousemove throttled — store raw value, apply in RAF instead of
+               running Three.js logic on every pixel moved (was 200+ calls/sec) */
+            document.addEventListener('mousemove', (e) => {
+                this.rawMouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+                this.rawMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            }, { passive: true });
+
+            /* PERF: passive:true on resize so scroll is never blocked */
+            window.addEventListener('resize', () => {
+                [
+                    { cam: this.backCamera,  renderer: this.backRenderer  },
+                    { cam: this.frontCamera, renderer: this.frontRenderer }
+                ].forEach(({ cam, renderer }) => {
+                    cam.aspect = window.innerWidth / window.innerHeight;
+                    cam.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    /* Re-apply pixel ratio cap on resize (device could rotate etc.) */
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                });
+            }, { passive: true });
+        }
+
+        /* — Per-object animation step — */
+        animateObject(obj) {
+            const cfg = obj.userData;
+            obj.rotation.x += cfg.rotationSpeed.x;
+            obj.rotation.y += cfg.rotationSpeed.y;
+            obj.position.x += (this.mouse.x * 50 - obj.position.x + cfg.position.x) * cfg.mouseInfluence;
+            obj.position.y += (this.mouse.y * 50 - obj.position.y + cfg.position.y) * cfg.mouseInfluence;
+        }
+
+        animate() {
+            /* PERF: skip frame entirely when tab hidden or hero scrolled out of view */
+            if (!this._visible || !this._heroVisible) {
+                this._rafId = requestAnimationFrame(() => this.animate());
+                return;
+            }
+
+            /* PERF: smooth mouse in RAF instead of per-event → silky parallax */
+            const lerp = 0.08;
+            this.mouse.x += (this.rawMouse.x - this.mouse.x) * lerp;
+            this.mouse.y += (this.rawMouse.y - this.mouse.y) * lerp;
+
+            this._rafId = requestAnimationFrame(() => this.animate());
+            this.backObjects.forEach((obj) => this.animateObject(obj));
+            if (this.frontObject) this.animateObject(this.frontObject);
+            this.backRenderer.render(this.backScene, this.backCamera);
+            this.frontRenderer.render(this.frontScene, this.frontCamera);
+        }
+    }
+
+    // Boot Three.js
+    const threeScene = new ThreeScene(THREE_CONFIG);
+
+
+    /* ============================================
+       STICKY NAV — hide on scroll down, show on scroll up
+       PERF: passive:true so the browser never waits for this handler
+             before compositing a scroll frame.
+       ============================================ */
+    let lastScrollTop  = 0;
+    const navHeader    = document.getElementById('nav-header');
+    const SCROLL_THRESHOLD = 100;
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop <= SCROLL_THRESHOLD || scrollTop < lastScrollTop) {
+            navHeader.classList.remove('hidden');
+        } else {
+            navHeader.classList.add('hidden');
+        }
+        lastScrollTop = Math.max(scrollTop, 0);
+    }, { passive: true }); /* ← PERF: was missing — caused scroll jank */
+
+
+    /* ============================================
+       DOWNLOAD CV
+       ============================================ */
+    function downloadCV() {
+        const cvPath = 'https://drive.google.com/file/d/1iuBHINhkWnyz_Y2aiKumw12C2MDjZRmt/view?usp=drive_link';
+        const link = document.createElement('a');
+        link.href = cvPath; link.download = 'YourName_CV.pdf'; link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+
+    /* ============================================
+       SMOOTH SCROLL for anchor links
+       ============================================ */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    </script></body>
+</html>
