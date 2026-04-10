@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional portfolio showcasing innovative design and development work.">
+    <meta name="description" content="Portfolio professionnel — Design au-delà de la surface.">
     <meta name="author" content="Your Name">
     <meta property="og:title" content="2026 Portfolio - Design Beyond the Surface">
     <meta property="og:type" content="website">
     <title>2026 Portfolio - Design Beyond the Surface</title>
 
     <!-- ============================================
-         FONTS
+         FONTS — une seule requête (perf: était 2 round-trips)
+         display=swap → texte visible immédiatement avec police de secours
          ============================================ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kings&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+          rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    </noscript>
 
     <style>
 
         /* ============================================
-           DESIGN TOKENS — change values here only
+           DESIGN TOKENS — modifier uniquement ici
            ============================================ */
         :root {
-            /* Colors */
             --bg-solid:           #101010;
             --primary-color:      #ffffff;
             --secondary-color:    #ffffff;
@@ -32,13 +37,11 @@
             --text-secondary:     #d1d5db;
             --text-muted:         #9ca3af;
 
-            /* Glass effect */
             --glass-bg:           rgba(16, 16, 16, 0.7);
             --glass-border:       rgba(255, 255, 255, 0.498);
             --glass-blur:         10px;
             --glass-shadow:       0 8px 32px rgba(0, 0, 0, 0.3);
 
-            /* Typography */
             --font-primary:       'Inter', sans-serif;
             --font-secondary:     'Kings', cursive;
             --font-heading:       'Inter', sans-serif;
@@ -51,7 +54,6 @@
             --font-size-3xl:      clamp(1.6rem,   6vw,   2.2rem);
             --font-size-hero:     clamp(2.2rem,   7vw,   3.5rem);
 
-            /* Spacing */
             --space-xs:   0.5rem;
             --space-sm:   1rem;
             --space-md:   2rem;
@@ -60,22 +62,18 @@
             --space-2xl:  6rem;
             --space-3xl:  8rem;
 
-            /* Layout */
             --max-width:       1400px;
             --section-pad-y:   var(--space-2xl);
             --section-pad-x:   var(--space-md);
 
-            /* Border radius */
             --radius-sm:   0.5rem;
             --radius-md:   1rem;
             --radius-pill: 2rem;
 
-            /* Transitions */
             --transition-fast: 0.2s ease;
             --transition-base: 0.3s ease;
             --transition-slow: 0.5s ease;
 
-            /* Background images */
             --hero-bg:   linear-gradient(to bottom, transparent 0%, var(--bg-solid) 100%),
                          url('./images/Final.png');
             --footer-bg: linear-gradient(to top, transparent 0%, var(--bg-solid) 100%),
@@ -98,7 +96,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Accessibility skip link */
+        /* Lien d'accessibilité */
         .skip-to-main {
             position: absolute; left: -9999px; z-index: 999;
             padding: 1rem; background-color: var(--primary-color);
@@ -106,9 +104,11 @@
         }
         .skip-to-main:focus { left: 50%; transform: translateX(-50%); top: 1rem; }
 
-        /* Font utility classes */
         .font-primary   { font-family: var(--font-primary); }
         .font-secondary { font-family: var(--font-secondary); }
+
+        /* Toutes les images et vidéos sont max-width:100% par défaut */
+        img, video { display: block; max-width: 100%; }
 
 
         /* ============================================
@@ -122,18 +122,21 @@
             border-radius: var(--radius-sm);
             box-shadow: var(--glass-shadow);
             padding: var(--space-md);
-            transition: all var(--transition-base);
+            /* PERF: scoped aux propriétés compositor-only (pas 'all') */
+            transition: transform var(--transition-base),
+                        opacity var(--transition-base),
+                        box-shadow var(--transition-base);
             position: relative;
             z-index: 5;
         }
 
 
         /* ============================================
-           NAVIGATION — sticky, hides on scroll down
+           NAVIGATION — sticky, burger mobile
            ============================================ */
         .nav-header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: linear-gradient(180deg, rgba(16,16,16,0.48) 0%, rgba(16,16,16,0) 100%);
+            background: linear-gradient(180deg, rgba(16,16,16,0.85) 0%, rgba(16,16,16,0) 100%);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             padding: var(--space-xs) var(--space-md);
@@ -147,6 +150,7 @@
         }
         .nav-logo { height: fit-content; }
 
+        /* Menu desktop */
         .nav-menu { display: flex; gap: var(--space-md); list-style: none; }
         .nav-menu a {
             color: var(--text-secondary); text-decoration: none;
@@ -155,8 +159,76 @@
             transition: color var(--transition-fast), background var(--transition-fast);
             display: block;
         }
-        .nav-menu a:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+        .nav-menu a:hover,
+        .nav-menu a.active { color: var(--text-primary); background: rgba(255,255,255,0.05); }
         .nav-menu a:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+
+        /* Dropdown Projets */
+        .nav-item-dropdown { position: relative; }
+        .nav-dropdown {
+            display: none;
+            position: absolute; top: 100%; left: 0;
+            background: rgba(16,16,16,0.97);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            min-width: 200px;
+            padding: 0.5rem 0;
+            z-index: 1001;
+        }
+        .nav-item-dropdown:hover .nav-dropdown,
+        .nav-item-dropdown:focus-within .nav-dropdown { display: block; }
+        .nav-dropdown a {
+            padding: 0.5rem 1rem;
+            display: block;
+            white-space: nowrap;
+            font-size: var(--font-size-sm);
+        }
+
+        /* Burger button — visible seulement sur mobile */
+        .nav-burger {
+            display: none;
+            flex-direction: column; justify-content: center; gap: 5px;
+            background: none; border: none; cursor: pointer;
+            padding: 0.5rem; z-index: 1001;
+        }
+        .nav-burger span {
+            display: block; width: 24px; height: 2px;
+            background: var(--text-primary);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        /* Animation burger → croix */
+        .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-burger.open span:nth-child(2) { opacity: 0; }
+        .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Menu mobile overlay */
+        .nav-mobile-menu {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(16,16,16,0.98);
+            z-index: 999;
+            flex-direction: column; align-items: center; justify-content: center;
+            gap: var(--space-lg);
+        }
+        .nav-mobile-menu.open { display: flex; }
+        .nav-mobile-menu a {
+            color: var(--text-primary); text-decoration: none;
+            font-size: var(--font-size-2xl); font-weight: 700;
+            transition: color var(--transition-fast);
+        }
+        .nav-mobile-menu a:hover { color: var(--accent-color); }
+        /* Sous-section projets dans le menu mobile */
+        .nav-mobile-projects {
+            display: flex; flex-direction: column; align-items: center;
+            gap: var(--space-sm);
+        }
+        .nav-mobile-projects .label {
+            font-size: var(--font-size-sm); color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 0.15em;
+        }
+        .nav-mobile-projects a {
+            font-size: var(--font-size-lg);
+        }
 
 
         /* ============================================
@@ -176,7 +248,10 @@
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
-            transition: all var(--transition-base);
+            /* PERF: scoped, pas 'transition: all' */
+            transition: transform var(--transition-base),
+                        box-shadow var(--transition-base),
+                        background var(--transition-base);
             position: relative;
             overflow: hidden;
             margin-top: var(--space-md);
@@ -197,6 +272,14 @@
         .btn-primary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border: none; }
         .btn-hero    { margin-top: var(--space-sm); margin-bottom: var(--space-3xl); }
 
+        /* Centrage du bouton "Explore My Work" */
+        .btn-centered {
+            display: block;
+            text-align: center;
+            margin: var(--space-xl) auto 0;
+            width: fit-content;
+        }
+
 
         /* ============================================
            HERO SECTION
@@ -214,26 +297,21 @@
             overflow: visible;
         }
 
-        /* Three.js canvas — behind content (z-index: 1) */
+        /* Canvas Three.js — derrière le contenu */
         #three-canvas {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
             pointer-events: none; z-index: 1;
         }
 
-        /* Three.js canvas — in front of glass card (z-index: 100) */
+        /* Canvas Three.js — devant la glass card */
         #three-canvas-front {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
             pointer-events: none; z-index: 100;
         }
 
-        /* ── Atmosphere image overlay ──────────────────
-           Sits above EVERYTHING in the hero.
-           pointer-events: none  →  fully click-through.
-           Adjust opacity & mix-blend-mode to taste:
-             mix-blend-mode options: screen | overlay | soft-light | lighten | multiply
-           ─────────────────────────────────────────── */
+        /* Overlay atmosphère — au-dessus de tout, click-through */
         .hero-atmosphere {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -241,13 +319,12 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            pointer-events: none;     /* click-through */
-            z-index: 200;             /* above front canvas (100) and glass card (5) */
-            opacity: 1;               /* 0–1: lower = more subtle */
-            mix-blend-mode: lighten;   /* try: screen, overlay, soft-light, lighten */
+            pointer-events: none;
+            z-index: 200;
+            opacity: 1;
+            mix-blend-mode: lighten;
         }
 
-        /* Hero text — must be above atmosphere overlay */
         .hero-title {
             font-size: var(--font-size-hero); font-weight: 700;
             margin-bottom: var(--space-sm);
@@ -258,12 +335,11 @@
             position: relative; z-index: 300;
         }
 
-        /* "Explore" button — above atmosphere */
         .btn-hero { position: relative; z-index: 300; }
 
         .hero-content {
             max-width: 900px; padding: 80px;
-            position: relative; z-index: 200; /* above atmosphere */
+            position: relative; z-index: 200;
         }
         .hero-subtitle {
             font-family: var(--font-heading); font-size: var(--font-size-2xl);
@@ -307,13 +383,13 @@
         .scroll-band::before { left: 0;  background: linear-gradient(to right, var(--bg-solid), transparent); }
         .scroll-band::after  { right: 0; background: linear-gradient(to left,  var(--bg-solid), transparent); }
 
-        .scroll-content         { display: flex; animation: scrollLeft 30s linear infinite; width: fit-content; }
+        /* PERF: will-change: transform → GPU layer, évite le repaint */
+        .scroll-content         { display: flex; animation: scrollLeft 30s linear infinite; width: fit-content; will-change: transform; }
         .scroll-content.reverse { animation-direction: reverse; }
 
+        /* PERF: backdrop-filter retiré des items animés (cause GPU overdraw massif) */
         .scroll-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
+            background: rgba(28, 28, 28, 0.92);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-pill);
             padding: 1rem 2.5rem; margin: 0 1rem;
@@ -340,7 +416,11 @@
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
             padding: var(--space-lg);
-            transition: all var(--transition-base);
+            /* PERF: will-change → couche compositor dédiée */
+            transition: transform var(--transition-base),
+                        box-shadow var(--transition-base),
+                        background var(--transition-base);
+            will-change: transform;
             background-size: cover;
         }
         .card:hover {
@@ -351,6 +431,71 @@
         #card1 { background-image: url('./images/Final.png'); }
         #card2 { background-image: url('./images/Final.png'); }
         #card3 { background-image: url('./images/Final.png'); }
+
+
+        /* ============================================
+           MY WORK SECTION — grille de projets avec 2e rangée gradient
+           ============================================ */
+        .my-work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+
+        /* Première rangée : cartes visibles normalement */
+        .work-card {
+            position: relative; overflow: hidden;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--glass-border);
+            aspect-ratio: 4 / 3;
+            background: var(--glass-bg);
+            cursor: pointer;
+            transition: transform var(--transition-base), box-shadow var(--transition-base);
+            will-change: transform;
+            text-decoration: none; color: inherit; display: block;
+        }
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .work-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        .work-card:hover img { transform: scale(1.05); }
+        .work-card-info {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: var(--space-sm) var(--space-md);
+            background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
+        }
+        .work-card-title { font-weight: 700; font-size: var(--font-size-base); }
+        .work-card-cat   { font-size: var(--font-size-xs); color: var(--accent-color); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+        /* Deuxième rangée — couverte d'un dégradé vers le bas pour inciter au clic */
+        .my-work-second-row {
+            position: relative;
+            margin-top: 0; /* les cartes sont dans la même grille */
+        }
+        /* Gradient overlay sur la 2e rangée — couvre partiellement les 3 dernières cartes */
+        .my-work-gradient-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent 0%, var(--bg-solid) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Wrapper qui positionne l'overlay par rapport à la grille */
+        .my-work-wrapper { position: relative; }
+
+        /* Bouton centré sous la grille */
+        .my-work-cta {
+            text-align: center;
+            margin-top: var(--space-xl);
+        }
 
 
         /* ============================================
@@ -410,16 +555,71 @@
 
 
         /* ============================================
+           LOADING SCREEN
+           — Affiché jusqu'à ce que Three.js + modèles soient prêts —
+           ============================================ */
+        #loading-screen {
+            position: fixed; inset: 0; z-index: 9999;
+            background-color: var(--bg-solid);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: var(--space-lg);
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #loading-screen.loaded {
+            opacity: 0; visibility: hidden; pointer-events: none;
+        }
+        .loading-logo {
+            width: clamp(60px, 12vw, 120px);
+            opacity: 0.9;
+            animation: loadingPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1);    }
+            50%       { opacity: 1;   transform: scale(1.05); }
+        }
+        .loading-bar-track {
+            width: clamp(140px, 30vw, 280px); height: 2px;
+            background: rgba(255,255,255,0.12); border-radius: 999px; overflow: hidden;
+        }
+        .loading-bar-fill {
+            height: 100%; width: 0%;
+            background: rgba(255,255,255,0.7);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+        .loading-label {
+            font-family: var(--font-primary); font-size: var(--font-size-xs);
+            font-weight: 600; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--text-muted);
+        }
+
+
+        /* ============================================
            RESPONSIVE
            ============================================ */
+        @media (max-width: 1024px) {
+            .my-work-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 768px) {
             :root { --section-pad-y: var(--space-lg); --section-pad-x: var(--space-sm); }
+
+            /* Burger visible, menu desktop caché */
+            .nav-burger { display: flex; }
+            .nav-menu   { display: none; }
+
             .about-container { grid-template-columns: 1fr; }
             .grid            { grid-template-columns: 1fr; }
-            .nav-menu        { gap: var(--space-xs); }
-            .nav-menu a      { padding: 0.5rem; font-size: var(--font-size-sm); }
             .hero-content    { padding: var(--space-md); }
+
+            .my-work-grid    { grid-template-columns: 1fr; }
+
+            /* Three.js : repositionner les objets pour mobile */
+            #three-canvas,
+            #three-canvas-front { width: 100%; }
         }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -428,6 +628,7 @@
                 scroll-behavior: auto !important;
             }
         }
+
         @media print {
             .download-section, #three-canvas, #three-canvas-front, .hero-atmosphere { display: none; }
         }
@@ -439,28 +640,88 @@
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
 
     <!-- ============================================
-         NAVIGATION
+         LOADING SCREEN
+         Displayed until Three.js scene (models + HDRI) is ready.
+         JS calls window.dismissLoader() once loaded.
          ============================================ -->
-    <nav class="nav-header" id="nav-header" role="navigation" aria-label="Main navigation">
+    <div id="loading-screen" role="status" aria-live="polite" aria-label="Chargement du portfolio">
+        <img src="./images/Icon Xs.png"
+             class="loading-logo"
+             alt="Portfolio logo"
+             width="120" height="120">
+        <div class="loading-bar-track">
+            <div class="loading-bar-fill" id="loading-bar"></div>
+        </div>
+        <span class="loading-label" id="loading-label">Chargement…</span>
+    </div>
+
+
+    <!-- ============================================
+         NAVIGATION — burger mobile inclus
+         ============================================ -->
+    <nav class="nav-header" id="nav-header" role="navigation" aria-label="Navigation principale">
         <div class="nav-header-inner">
-            <img src="./images/Icon Xs.png" class="nav-logo" alt="Logo">
-            <ul class="nav-menu">
+
+            <!-- Logo — retour à l'accueil -->
+            <a href="./index.html">
+                <img src="./images/Icon Xs.png" class="nav-logo" alt="Logo — retour à l'accueil">
+            </a>
+
+            <!-- Menu desktop -->
+            <ul class="nav-menu" id="nav-menu-desktop">
                 <li><a href="#values-section">Values</a></li>
                 <li><a href="#about-section">About</a></li>
-                <li><a href="#skills-section">Skills</a></li>
+                <!-- Dropdown Projets -->
+                <li class="nav-item-dropdown">
+                    <a href="./projects.html" aria-haspopup="true">Projets ▾</a>
+                    <ul class="nav-dropdown" role="menu">
+                        <li><a href="./Pokemon_TCGP.html" role="menuitem">Pokémon TCGP</a></li>
+                        <li><a href="./Revision_Go.html" role="menuitem">Révision Go</a></li>
+                        <li><a href="./Terra_Numerica.html" role="menuitem">Terra Numerica</a></li>
+                        <li><a href="./VALD.html" role="menuitem">VALD</a></li>
+                        <li><a href="./AKRA.html" role="menuitem">AKRA</a></li>
+                        <li><a href="./Cyber_Harcelement.html" role="menuitem">Cyberharcèlement</a></li>
+                        <li><a href="./Gundam3D.html" role="menuitem">Gundam 3D</a></li>
+                        <li><a href="./Midnight_Club.html" role="menuitem">Midnight Club</a></li>
+                    </ul>
+                </li>
                 <li><a href="#download">CV</a></li>
             </ul>
+
+            <!-- Burger button (mobile uniquement) -->
+            <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Menu mobile overlay -->
+    <div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-label="Menu mobile">
+        <a href="#values-section">Values</a>
+        <a href="#about-section">About</a>
+        <a href="#download">CV</a>
+        <div class="nav-mobile-projects">
+            <span class="label">Projets</span>
+            <a href="./projects.html">Tous les projets</a>
+            <a href="./Pokemon_TCGP.html">Pokémon TCGP</a>
+            <a href="./Revision_Go.html">Révision Go</a>
+            <a href="./Terra_Numerica.html">Terra Numerica</a>
+            <a href="./VALD.html">VALD</a>
+            <a href="./AKRA.html">AKRA</a>
+            <a href="./Cyber_Harcelement.html">Cyberharcèlement</a>
+            <a href="./Gundam3D.html">Gundam 3D</a>
+            <a href="./Midnight_Club.html">Midnight Club</a>
+        </div>
+    </div>
 
 
     <!-- ============================================
          HERO SECTION
-         Layer order (bottom → top):
-           1. Hero background image       (CSS background)
+         Ordre des couches (bas → haut) :
+           1. Fond CSS background
            2. #three-canvas               (z-index: 1)
-           3. Hero text / button          (z-index: 10 / 300)
-           4. .hero-content glass card    (z-index: 300)
+           3. Texte hero / bouton         (z-index: 300)
+           4. .hero-content glass card    (z-index: 200)
            5. #three-canvas-front         (z-index: 100)
            6. .hero-atmosphere            (z-index: 200, pointer-events: none)
          ============================================ -->
@@ -473,7 +734,8 @@
             <span class="font-secondary">Portfolio</span>
         </h1>
 
-        <a href=".//projects.html" class="btn btn-hero" aria-label="Explore my work">Explore My Work</a>
+        <!-- Bouton "Explore My Work" centré dans le hero -->
+        <a href="./projects.html" class="btn btn-hero btn-centered" aria-label="Explorer mes projets">Explore My Work</a>
 
         <div class="hero-content glass-container">
             <p class="hero-subtitle">
@@ -488,14 +750,14 @@
 
         <canvas id="three-canvas-front" aria-hidden="true"></canvas>
 
-        <!-- Atmosphere overlay — above everything, fully click-through -->
+        <!-- Overlay atmosphère — click-through -->
         <div class="hero-atmosphere" aria-hidden="true"></div>
 
     </section>
 
 
     <!-- ============================================
-         MAIN CONTENT
+         CONTENU PRINCIPAL
          ============================================ -->
     <main id="main-content">
 
@@ -504,6 +766,7 @@
             <div class="section-inner">
                 <h2 class="section-title" id="values-title"><span class="font-primary">My Values</span></h2>
 
+                <!-- Bande défilante (aria-hidden : purement décoratif) -->
                 <div class="scroll-band" aria-hidden="true">
                     <div class="scroll-content">
                         <span class="scroll-item">Innovation</span>
@@ -512,6 +775,7 @@
                         <span class="scroll-item">Collaboration</span>
                         <span class="scroll-item">Growth</span>
                         <span class="scroll-item">Creativity</span>
+                        <!-- Doublon pour l'illusion d'infini -->
                         <span class="scroll-item">Innovation</span>
                         <span class="scroll-item">Excellence</span>
                         <span class="scroll-item">Integrity</span>
@@ -530,22 +794,76 @@
                     </p>
                 </div>
 
-                <div class="grid">
-                    <article class="card" id="card1">
-                        <h3 class="card-title">User-Centered</h3>
-                        <img class="card-img" src="./images/Icon.png" alt="User-Centered icon">
-                    </article>
-                    <article class="card" id="card2">
-                        <h3 class="card-title">Detail-Oriented</h3>
-                        <img class="card-img" src="./images/Icon.png" alt="Detail-Oriented icon">
-                    </article>
-                    <article class="card" id="card3">
-                        <h3 class="card-title">Future-Focused</h3>
-                        <img class="card-img" src="./images/Icon.png" alt="Future-Focused icon">
-                    </article>
+                <!-- MY WORK — grille 2 rangées avec gradient sur la 2e -->
+                <div class="my-work-wrapper">
+                    <div class="my-work-grid" id="my-work-grid">
+
+                        <!-- ── Rangée 1 — cartes pleinement visibles ── -->
+                        <a href="./Pokemon_TCGP.html" class="work-card" aria-label="Pokémon TCGP">
+                            <img src="./images/Image Projets/Pokemon TCGP/Miniature.png"
+                                 alt="Pokémon TCGP" loading="lazy">
+                            <div class="work-card-info">
+                                <p class="work-card-cat">UI / UX</p>
+                                <p class="work-card-title">Pokémon TCGP</p>
+                            </div>
+                        </a>
+
+                        <a href="./Revision_Go.html" class="work-card" aria-label="Révision Go">
+                            <img src="./images/Image Projets/Revision Go/Miniature.png"
+                                 alt="Révision Go" loading="lazy">
+                            <div class="work-card-info">
+                                <p class="work-card-cat">UI / UX</p>
+                                <p class="work-card-title">Révision Go</p>
+                            </div>
+                        </a>
+
+                        <a href="./Terra_Numerica.html" class="work-card" aria-label="Terra Numerica">
+                            <img src="./images/Image Projets/Terra Numerica/Miniature.png"
+                                 alt="Terra Numerica" loading="lazy">
+                            <div class="work-card-info">
+                                <p class="work-card-cat">Branding</p>
+                                <p class="work-card-title">Terra Numerica</p>
+                            </div>
+                        </a>
+
+                        <!-- ── Rangée 2 — partiellement couverte par le gradient ── -->
+                        <a href="./VALD.html" class="work-card" aria-label="VALD">
+                            <img src="./images/Image Projets/Vald/Miniature.png"
+                                 alt="VALD" loading="lazy">
+                            <div class="work-card-info">
+                                <p class="work-card-cat">UI / UX</p>
+                                <p class="work-card-title">VALD</p>
+                            </div>
+                        </a>
+
+                        <a href="./AKRA.html" class="work-card" aria-label="AKRA">
+                            <img src="./images/Image Projets/Akra/mockup1.png"
+                                 alt="AKRA" loading="lazy">
+                            <div class="work-card-info">
+                                <p class="work-card-cat">Branding</p>
+                                <p class="work-card-title">AKRA</p>
+                            </div>
+                        </a>
+
+                        <a href="./Gundam3D.html" class="work-card" aria-label="Gundam 3D">
+                            <img src="./images/Image Projets/Gundam/Gundam.png"
+                                 alt="Gundam 3D" loading="lazy">
+                            <div class="work-card-info">
+                                <p class="work-card-cat">3D</p>
+                                <p class="work-card-title">Gundam 3D</p>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <!-- Gradient overlay couvrant la 2e rangée pour inciter au clic -->
+                    <div class="my-work-gradient-overlay" aria-hidden="true"></div>
                 </div>
 
-                <a href=".//projects.html" class="btn btn-hero" aria-label="Explore my work">Explore My Work</a>
+                <!-- Bouton "Explore My Work" centré sous la grille -->
+                <div class="my-work-cta">
+                    <a href="./projects.html" class="btn" aria-label="Voir tous mes projets">Explore My Work</a>
+                </div>
 
             </div>
         </section>
@@ -555,7 +873,7 @@
             <div class="section-inner">
                 <h2 class="section-title" id="about-title"><span class="font-primary">About Me</span></h2>
                 <div class="about-container glass-container">
-                    <div class="profile-image" role="img" aria-label="Profile photo"></div>
+                    <div class="profile-image" role="img" aria-label="Photo de profil"></div>
                     <div class="about-content">
                         <h3>Hello, I'm [Your Name]</h3>
                         <p>I'm a passionate designer and developer dedicated to creating exceptional digital experiences. With a blend of creativity and technical expertise, I transform ideas into reality.</p>
@@ -607,7 +925,7 @@
         <!-- DOWNLOAD CV -->
         <section class="download-section" id="download" aria-labelledby="download-title">
             <h2 class="section-title" id="download-title">Download My CV</h2>
-            <button class="btn btn-primary download-btn" onclick="downloadCV()" aria-label="Download CV in PDF format">
+            <button class="btn btn-primary download-btn" onclick="downloadCV()" aria-label="Télécharger le CV en PDF">
                 📄 Download CV (PDF)
             </button>
         </section>
@@ -622,49 +940,108 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Contact</h3>
-                <a href="mailto:your.email@example.com">your.email@example.com</a>
-                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                <a href="mailto:votre@email.com">votre@email.com</a>
+                <a href="tel:+33600000000">+33 6 00 00 00 00</a>
                 <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
-                    123 Design Street<br>Creative City, CC 12345
+                    123 Rue du Design<br>75001 Paris, France
                 </address>
             </div>
             <div class="footer-section">
-                <h3>Social Media</h3>
+                <h3>Réseaux</h3>
                 <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer">Dribbble</a>
                 <a href="https://behance.net" target="_blank" rel="noopener noreferrer">Behance</a>
             </div>
             <div class="footer-section">
-                <h3>Quick Links</h3>
-                <a href="#values-section">My Values</a>
-                <a href="#about-section">About Me</a>
-                <a href="#skills-section">Skills</a>
-                <a href="#download">Download CV</a>
+                <h3>Navigation</h3>
+                <a href="#values-section">Values</a>
+                <a href="#about-section">About</a>
+                <a href="./projects.html">Projets</a>
+                <a href="#download">CV</a>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2026 Your Name. All rights reserved. Designed with passion and precision.</p>
+            <p>&copy; 2026 Votre Nom. Tous droits réservés. Conçu avec passion et précision.</p>
         </div>
     </footer>
 
 
     <!-- ============================================
-         THREE.JS LIBRARIES
+         THREE.JS — chargé en DEFER (non-bloquant)
+         PERF: était 3 <script> synchrones qui bloquaient le parsing HTML.
+         Avec defer, le navigateur parse + render la page pendant le téléchargement.
          ============================================ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
 
     <script>
     /* ============================================
+       BURGER MENU — toggle mobile overlay
+       ============================================ */
+    (function () {
+        const burger    = document.getElementById('nav-burger');
+        const mobileMenu = document.getElementById('nav-mobile-menu');
+
+        burger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            burger.classList.toggle('open', isOpen);
+            burger.setAttribute('aria-expanded', isOpen);
+            /* Empêche le scroll du body quand le menu est ouvert */
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        /* Fermer le menu en cliquant sur un lien */
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                burger.classList.remove('open');
+                burger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+    })();
+
+
+    /* ============================================
+       LOADING SCREEN CONTROLLER
+       — Suit la progression des assets ; ferme l'overlay quand tout est prêt.
+       — Fallback timeout 6s pour éviter qu'il reste bloqué.
+       ============================================ */
+    (function () {
+        const screen  = document.getElementById('loading-screen');
+        const bar     = document.getElementById('loading-bar');
+        const label   = document.getElementById('loading-label');
+
+        let progress = 0;
+
+        /* Appelé par ThreeScene à chaque asset chargé */
+        window.setLoadProgress = function (pct, text) {
+            progress = Math.min(pct, 100);
+            bar.style.width = progress + '%';
+            if (text) label.textContent = text;
+        };
+
+        /* Appelé quand tout est prêt — retire l'overlay */
+        window.dismissLoader = function () {
+            screen.classList.add('loaded');
+            screen.addEventListener('transitionend', () => screen.remove(), { once: true });
+        };
+
+        /* Timeout de sécurité */
+        setTimeout(() => window.dismissLoader(), 6000);
+    })();
+
+
+    /* ============================================
        THREE.JS CONFIGURATION
-       — The only place you need to edit for 3D changes —
+       — Seul endroit à modifier pour les changements 3D —
        ============================================ */
     const THREE_CONFIG = {
         enabled: true,
 
-        // ── Back objects (render behind the glass card) ──────────────
+        /* Objets derrière la glass card */
         backCubes: [
             {
                 position:       { x: -300, y: 100,  z: -50 },
@@ -682,7 +1059,7 @@
             }
         ],
 
-        // ── Front object (renders in front of the glass card) ────────
+        /* Objet devant la glass card */
         frontCube: {
             position:       { x: -250, y: -150, z: 300 },
             rotationSpeed:  { x: 0.0005, y: 0.004 },
@@ -691,64 +1068,106 @@
             scale:          7
         },
 
-        // ── Glass material ────────────────────────────────────────────
+        /* Matériau verre */
         material: {
             metalness:       0,
             roughness:       0,
             transparent:     true,
             opacity:         1,
-            transmission:    0.5,   // 0 = solid, 1 = full glass
+            transmission:    0.5,
             thickness:       2,
-            ior:             2.5,   // refraction — glass ~1.5, crystal ~2.5
+            ior:             2.5,
             envMapIntensity: 3
         },
 
-        // ── HDRI lighting ─────────────────────────────────────────────
+        /* HDRI */
         hdriPath: 'images/ferndale_studio_12_4k.hdr',
 
-        // ── Renderer ──────────────────────────────────────────────────
-        toneMapping:         THREE.ACESFilmicToneMapping,
+        /* Rendu */
+        toneMapping:         null, /* sera défini après chargement Three */
         toneMappingExposure: 1
     };
 
 
     /* ============================================
-       THREE.JS SCENE CLASS
+       THREE.JS SCENE — optimisé pour les performances
        ============================================ */
     class ThreeScene {
         constructor(config) {
             if (!config.enabled) return;
             this.config      = config;
-            this.mouse       = { x: 0, y: 0 };
+            this.mouse       = { x: 0, y: 0 };   /* position lissée */
+            this.rawMouse    = { x: 0, y: 0 };   /* position brute des events */
             this.backObjects = [];
             this.frontObject = null;
 
-            this.initBackScene();
-            this.initFrontScene();
-            this.addLighting();
-            this.loadAllModels();
-            this.addEventListeners();
-            this.animate();
+            /* Compteur pour la barre de progression */
+            this.loadedCount = 0;
+            this.totalModels = config.backCubes.length + 1;
+
+            /* PERF: pause le RAF quand l'onglet est masqué */
+            this._rafId   = null;
+            this._visible = true;
+            document.addEventListener('visibilitychange', () => {
+                this._visible = !document.hidden;
+                if (this._visible && this._rafId === null) this.animate();
+            });
+
+            /* PERF: arrête le rendu quand le hero est hors viewport */
+            this._heroVisible = true;
+            const heroEl = document.getElementById('hero');
+            if (heroEl && 'IntersectionObserver' in window) {
+                new IntersectionObserver((entries) => {
+                    this._heroVisible = entries[0].isIntersecting;
+                }, { threshold: 0 }).observe(heroEl);
+            }
+
+            /* Attendre que Three.js soit chargé (scripts defer) */
+            this._waitForThree(() => {
+                /* Appliquer le tone mapping après chargement */
+                config.toneMapping = THREE.ACESFilmicToneMapping;
+                this.initBackScene();
+                this.initFrontScene();
+                this.addLighting();
+                this.loadAllModels();
+                this.addEventListeners();
+                this.animate();
+            });
         }
 
-        /* — Shared renderer factory — */
+        /* Attendre que window.THREE soit disponible */
+        _waitForThree(cb) {
+            if (window.THREE) { cb(); return; }
+            setTimeout(() => this._waitForThree(cb), 50);
+        }
+
+        /* Crée un renderer WebGL */
         createRenderer(canvasId) {
             const renderer = new THREE.WebGLRenderer({
-                canvas: document.getElementById(canvasId),
-                alpha: true,
-                antialias: true
+                canvas:          document.getElementById(canvasId),
+                alpha:           true,
+                antialias:       true,
+                powerPreference: 'high-performance'
             });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            renderer.setSize(w, h);
+            /* PERF: cap pixel ratio à 2 (économise ~55% GPU sur Retina 3×) */
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.toneMapping         = this.config.toneMapping;
             renderer.toneMappingExposure = this.config.toneMappingExposure;
             return renderer;
         }
 
-        /* — Shared camera factory — */
+        /* Crée une caméra perspective */
         createCamera() {
-            const cam = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-            cam.position.z = 500;
+            const isMobile = window.innerWidth < 768;
+            const cam = new THREE.PerspectiveCamera(
+                isMobile ? 90 : 75,  /* FOV plus large sur mobile */
+                window.innerWidth / window.innerHeight,
+                0.1, 2000
+            );
+            cam.position.z = isMobile ? 400 : 500;
             return cam;
         }
 
@@ -764,12 +1183,14 @@
             this.frontRenderer = this.createRenderer('three-canvas-front');
         }
 
-        /* — HDRI lighting (one PMREMGenerator per renderer/context) — */
+        /* Éclairage HDRI */
         addLighting() {
             const pmremBack  = new THREE.PMREMGenerator(this.backRenderer);
             const pmremFront = new THREE.PMREMGenerator(this.frontRenderer);
             pmremBack.compileEquirectangularShader();
             pmremFront.compileEquirectangularShader();
+
+            window.setLoadProgress(10, 'Chargement de l\'environnement…');
 
             new THREE.RGBELoader()
                 .setDataType(THREE.UnsignedByteType)
@@ -778,21 +1199,27 @@
                     (texture) => {
                         this.backScene.environment  = pmremBack.fromEquirectangular(texture).texture;
                         this.frontScene.environment = pmremFront.fromEquirectangular(texture).texture;
-                        texture.dispose();
-                        pmremBack.dispose();
-                        pmremFront.dispose();
+                        texture.dispose(); pmremBack.dispose(); pmremFront.dispose();
+                        window.setLoadProgress(30, 'Environnement prêt…');
                     },
                     undefined,
-                    (err) => console.error('HDRI failed:', err)
+                    (err) => {
+                        console.error('HDRI failed:', err);
+                        window.setLoadProgress(30, 'Chargement des modèles…');
+                    }
                 );
 
-            // Soft fallback while HDRI loads
+            /* Lumière ambiante de secours pendant le chargement HDRI */
             this.backScene.add(new THREE.AmbientLight(0xffffff, 0.6));
             this.frontScene.add(new THREE.AmbientLight(0xffffff, 0.6));
         }
 
-        /* — Load a single GLB, apply glass material, then call onLoaded — */
+        /* Charge un GLB et applique le matériau verre */
         loadModel(modelCfg, onLoaded) {
+            /* Sur mobile, réduire la taille des objets */
+            const isMobile = window.innerWidth < 768;
+            const scaleFactor = isMobile ? 0.5 : 1;
+
             const loader = new THREE.GLTFLoader();
             loader.load(
                 modelCfg.modelPath,
@@ -802,7 +1229,6 @@
 
                     object.traverse((child) => {
                         if (child.isMesh) {
-                            // Preserve any baked textures from Blender
                             const originalMap      = child.material.map;
                             const originalNormal   = child.material.normalMap;
                             const originalEmissive = child.material.emissiveMap;
@@ -826,18 +1252,37 @@
                         }
                     });
 
-                    object.position.set(modelCfg.position.x, modelCfg.position.y, modelCfg.position.z);
-                    const s = modelCfg.scale || 1;
+                    /* Position : adapter pour mobile */
+                    const pos = modelCfg.position;
+                    object.position.set(
+                        pos.x * scaleFactor,
+                        pos.y * scaleFactor,
+                        pos.z
+                    );
+                    const s = (modelCfg.scale || 1) * scaleFactor;
                     object.scale.set(s, s, s);
                     object.userData = modelCfg;
                     onLoaded(object);
+
+                    this.loadedCount++;
+                    const pct = 30 + Math.round((this.loadedCount / this.totalModels) * 70);
+                    window.setLoadProgress(
+                        pct,
+                        this.loadedCount < this.totalModels ? 'Chargement des modèles…' : 'Prêt !'
+                    );
+                    if (this.loadedCount >= this.totalModels) window.dismissLoader();
                 },
                 (xhr) => {
-                    if (xhr.total) console.log('Loading ' + modelCfg.modelPath + ': ' + Math.round(xhr.loaded / xhr.total * 100) + '%');
+                    if (xhr.total) {
+                        const base = 30 + Math.round((this.loadedCount / this.totalModels) * 70);
+                        const sub  = Math.round((xhr.loaded / xhr.total) * (70 / this.totalModels));
+                        window.setLoadProgress(base + sub);
+                    }
                 },
                 (err) => {
                     console.error('Model load failed:', err);
-                    console.warn('Use Live Server in VS Code — not file://');
+                    this.loadedCount++;
+                    if (this.loadedCount >= this.totalModels) window.dismissLoader();
                 }
             );
         }
@@ -855,13 +1300,22 @@
             });
         }
 
-        /* — Mouse + resize listeners — */
         addEventListeners() {
+            /* PERF: stocke la position brute, lisse dans RAF */
             document.addEventListener('mousemove', (e) => {
-                this.mouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
-                this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-            });
+                this.rawMouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+                this.rawMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            }, { passive: true });
 
+            /* Gyroscope sur mobile (optionnel) */
+            window.addEventListener('deviceorientation', (e) => {
+                if (e.gamma !== null) {
+                    this.rawMouse.x = e.gamma / 45;
+                    this.rawMouse.y = (e.beta - 45) / 45;
+                }
+            }, { passive: true });
+
+            /* Redimensionnement de la fenêtre */
             window.addEventListener('resize', () => {
                 [
                     { cam: this.backCamera,  renderer: this.backRenderer  },
@@ -870,11 +1324,12 @@
                     cam.aspect = window.innerWidth / window.innerHeight;
                     cam.updateProjectionMatrix();
                     renderer.setSize(window.innerWidth, window.innerHeight);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 });
-            });
+            }, { passive: true });
         }
 
-        /* — Per-object animation step — */
+        /* Anime un objet 3D (rotation + parallaxe souris) */
         animateObject(obj) {
             const cfg = obj.userData;
             obj.rotation.x += cfg.rotationSpeed.x;
@@ -884,7 +1339,18 @@
         }
 
         animate() {
-            requestAnimationFrame(() => this.animate());
+            /* PERF: saute la frame si onglet masqué ou hero hors vue */
+            if (!this._visible || !this._heroVisible) {
+                this._rafId = requestAnimationFrame(() => this.animate());
+                return;
+            }
+
+            /* PERF: lissage souris dans RAF (évite les calculs à 200+ events/sec) */
+            const lerp = 0.08;
+            this.mouse.x += (this.rawMouse.x - this.mouse.x) * lerp;
+            this.mouse.y += (this.rawMouse.y - this.mouse.y) * lerp;
+
+            this._rafId = requestAnimationFrame(() => this.animate());
             this.backObjects.forEach((obj) => this.animateObject(obj));
             if (this.frontObject) this.animateObject(this.frontObject);
             this.backRenderer.render(this.backScene, this.backCamera);
@@ -892,12 +1358,15 @@
         }
     }
 
-    // Boot Three.js
-    const threeScene = new ThreeScene(THREE_CONFIG);
+    /* Démarrage Three.js (après chargement des scripts defer) */
+    window.addEventListener('load', () => {
+        new ThreeScene(THREE_CONFIG);
+    });
 
 
     /* ============================================
-       STICKY NAV — hide on scroll down, show on scroll up
+       NAV STICKY — masquer au scroll bas, afficher au scroll haut
+       PERF: passive:true → jamais de blocage de frame de scroll
        ============================================ */
     let lastScrollTop  = 0;
     const navHeader    = document.getElementById('nav-header');
@@ -911,7 +1380,7 @@
             navHeader.classList.add('hidden');
         }
         lastScrollTop = Math.max(scrollTop, 0);
-    }, false);
+    }, { passive: true });
 
 
     /* ============================================
@@ -928,16 +1397,17 @@
 
 
     /* ============================================
-       SMOOTH SCROLL for anchor links
+       SMOOTH SCROLL pour les liens ancre
        ============================================ */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         });
     });
-
     </script>
 </body>
 </html>

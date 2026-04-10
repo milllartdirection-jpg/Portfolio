@@ -6,21 +6,23 @@
     <meta name="description" content="Tous les projets du portfolio — Directeur Artistique.">
     <title>Projets — Portfolio</title>
 
-    <!-- ============================================
-         FONTS  (identiques à l'index)
-         ============================================ -->
+    <!-- FONTS — une seule requête (perf) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kings&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+          rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    </noscript>
 
     <style>
 
         /* ============================================
-           DESIGN TOKENS — modifier uniquement ici
+           DESIGN TOKENS
            ============================================ */
         :root {
-            /* Couleurs */
             --bg-solid:        #101010;
             --primary-color:   #ffffff;
             --secondary-color: #ffffff;
@@ -28,75 +30,49 @@
             --text-primary:    #ffffff;
             --text-secondary:  #d1d5db;
             --text-muted:      #9ca3af;
-
-            /* Effet verre */
-            --glass-bg:     rgba(16, 16, 16, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.498);
-            --glass-blur:   10px;
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-
-            /* Typographie */
-            --font-primary:   'Inter', sans-serif;
-            --font-secondary: 'Kings', cursive;
+            --glass-bg:        rgba(16, 16, 16, 0.7);
+            --glass-border:    rgba(255, 255, 255, 0.498);
+            --glass-blur:      10px;
+            --glass-shadow:    0 8px 32px rgba(0, 0, 0, 0.3);
+            --font-primary:    'Inter', sans-serif;
+            --font-secondary:  'Kings', cursive;
             --font-heading:    'Inter', sans-serif;
-            --font-size-xs:   clamp(0.65rem, 1.5vw, 0.75rem);
-            --font-size-sm:   clamp(0.75rem, 2vw,   0.85rem);
-            --font-size-base: clamp(0.85rem, 2.5vw, 0.95rem);
-            --font-size-lg:   clamp(0.95rem, 3vw,   1.1rem);
-            --font-size-xl:   clamp(1.1rem,  4vw,   1.35rem);
-            --font-size-2xl:  clamp(1.35rem, 5vw,   1.8rem);
-            --font-size-3xl:  clamp(1.6rem,  6vw,   2.2rem);
-            --font-size-hero: clamp(2.2rem,  7vw,   3.5rem);
-
-            /* Espacement */
-            --space-xs:  0.5rem;
-            --space-sm:  1rem;
-            --space-md:  2rem;
-            --space-lg:  3rem;
-            --space-xl:  4rem;
-            --space-2xl: 6rem;
+            --font-size-xs:    clamp(0.65rem, 1.5vw, 0.75rem);
+            --font-size-sm:    clamp(0.75rem, 2vw,   0.85rem);
+            --font-size-base:  clamp(0.85rem, 2.5vw, 0.95rem);
+            --font-size-lg:    clamp(0.95rem, 3vw,   1.1rem);
+            --font-size-xl:    clamp(1.1rem,  4vw,   1.35rem);
+            --font-size-2xl:   clamp(1.35rem, 5vw,   1.8rem);
+            --font-size-3xl:   clamp(1.6rem,  6vw,   2.2rem);
+            --font-size-hero:  clamp(2.2rem,  7vw,   3.5rem);
+            --space-xs: 0.5rem; --space-sm: 1rem; --space-md: 2rem;
+            --space-lg: 3rem;   --space-xl: 4rem; --space-2xl: 6rem;
             --space-3xl: 8rem;
-
-            /* Layout */
-            --max-width:     1400px;
+            --max-width: 1400px;
             --section-pad-y: var(--space-2xl);
             --section-pad-x: var(--space-md);
-
-            /* Border radius */
-            --radius-sm:   0.5rem;
-            --radius-md:   1rem;
-            --radius-pill: 2rem;
-
-            /* Transitions */
+            --radius-sm: 0.5rem; --radius-md: 1rem; --radius-pill: 2rem;
             --transition-fast: 0.2s ease;
             --transition-base: 0.3s ease;
             --transition-slow: 0.5s ease;
-
-            /* Backgrounds (remplacer les chemins d'images si besoin) */
             --hero-bg:   linear-gradient(to bottom, transparent 0%, var(--bg-solid) 100%),
                          url('./images/Final.png');
             --footer-bg: linear-gradient(to top, transparent 0%, var(--bg-solid) 100%),
                          url('./images/Final.png');
         }
 
-
-        /* ============================================
-           RESET & BASE
-           ============================================ */
+        /* RESET */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-primary);
-            background-color: var(--bg-solid);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-solid); color: var(--text-primary);
+            line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
         }
         .font-primary   { font-family: var(--font-primary); }
         .font-secondary { font-family: var(--font-secondary); }
+        img, video { display: block; max-width: 100%; }
 
-        /* Lien d'accessibilité */
         .skip-to-main {
             position: absolute; left: -9999px; z-index: 999;
             padding: 1rem; background-color: var(--primary-color);
@@ -106,11 +82,11 @@
 
 
         /* ============================================
-           NAVIGATION — identique à l'index
+           NAVIGATION — burger mobile, dropdown Projets
            ============================================ */
         .nav-header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: linear-gradient(180deg, rgba(16,16,16,0.48) 0%, rgba(16,16,16,0) 100%);
+            background: linear-gradient(180deg, rgba(16,16,16,0.85) 0%, rgba(16,16,16,0) 100%);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             padding: var(--space-xs) var(--space-md);
@@ -130,21 +106,62 @@
             transition: color var(--transition-fast), background var(--transition-fast);
             display: block;
         }
-        .nav-menu a:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
-        .nav-menu a.active { color: var(--text-primary); }
+        .nav-menu a:hover,
+        .nav-menu a.active { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+
+        /* Dropdown Projets */
+        .nav-item-dropdown { position: relative; }
+        .nav-dropdown {
+            display: none; position: absolute; top: 100%; left: 0;
+            background: rgba(16,16,16,0.97);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            min-width: 200px; padding: 0.5rem 0; z-index: 1001;
+        }
+        .nav-item-dropdown:hover .nav-dropdown,
+        .nav-item-dropdown:focus-within .nav-dropdown { display: block; }
+        .nav-dropdown a { padding: 0.5rem 1rem; display: block; white-space: nowrap; font-size: var(--font-size-sm); }
+
+        /* Burger */
+        .nav-burger {
+            display: none; flex-direction: column; justify-content: center; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 1001;
+        }
+        .nav-burger span {
+            display: block; width: 24px; height: 2px; background: var(--text-primary);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-burger.open span:nth-child(2) { opacity: 0; }
+        .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Menu mobile overlay */
+        .nav-mobile-menu {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(16,16,16,0.98); z-index: 999;
+            flex-direction: column; align-items: center; justify-content: center;
+            gap: var(--space-lg); overflow-y: auto;
+        }
+        .nav-mobile-menu.open { display: flex; }
+        .nav-mobile-menu a {
+            color: var(--text-primary); text-decoration: none;
+            font-size: var(--font-size-2xl); font-weight: 700;
+            transition: color var(--transition-fast);
+        }
+        .nav-mobile-menu a:hover { color: var(--accent-color); }
+        .nav-mobile-projects { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+        .nav-mobile-projects .label { font-size: var(--font-size-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; }
+        .nav-mobile-projects a { font-size: var(--font-size-lg); }
 
 
         /* ============================================
-           MINI HERO — présentation de la page projets
+           PAGE HERO
            ============================================ */
         .page-hero {
-            min-height: 50vh;
-            display: flex; flex-direction: column;
+            min-height: 50vh; display: flex; flex-direction: column;
             justify-content: flex-end; align-items: flex-start;
             padding: var(--space-3xl) var(--section-pad-x) var(--space-xl);
-            background: var(--hero-bg);
-            background-size: cover;
-            background-position: center;
+            background: var(--hero-bg); background-size: cover; background-position: center;
         }
         .page-hero-inner { max-width: var(--max-width); width: 100%; margin: 0 auto; }
         .page-hero-label {
@@ -159,14 +176,12 @@
         }
         .page-hero-desc {
             font-family: var(--font-heading); font-style: italic;
-            font-size: var(--font-size-xl); color: var(--text-secondary);
-            max-width: 600px;
+            font-size: var(--font-size-xl); color: var(--text-secondary); max-width: 600px;
         }
 
 
         /* ============================================
-           FILTRES DE CATÉGORIE
-           — Ajouter / supprimer des data-filter selon vos besoins —
+           FILTRES
            ============================================ */
         .filters {
             display: flex; flex-wrap: wrap; gap: var(--space-sm);
@@ -174,26 +189,23 @@
             max-width: var(--max-width); margin: 0 auto;
         }
         .filter-btn {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
+            background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-pill);
-            padding: 0.5rem 1.5rem;
-            color: var(--text-secondary); font-family: var(--font-primary);
-            font-size: var(--font-size-sm); font-weight: 600; cursor: pointer;
-            transition: all var(--transition-base);
+            border: 1px solid var(--glass-border); border-radius: var(--radius-pill);
+            padding: 0.5rem 1.5rem; color: var(--text-secondary);
+            font-family: var(--font-primary); font-size: var(--font-size-sm);
+            font-weight: 600; cursor: pointer;
+            transition: background var(--transition-base), color var(--transition-base), border-color var(--transition-base);
         }
         .filter-btn:hover,
         .filter-btn.active {
-            background: rgba(255,255,255,0.15);
-            color: var(--text-primary);
+            background: rgba(255,255,255,0.15); color: var(--text-primary);
             border-color: rgba(255,255,255,0.8);
         }
 
 
         /* ============================================
-           GRILLE DE PROJETS
+           GRILLE PROJETS
            ============================================ */
         .projects-section {
             padding: 0 var(--section-pad-x) var(--space-3xl);
@@ -201,68 +213,48 @@
         }
         .projects-grid {
             max-width: var(--max-width); margin: 0 auto;
-            display: grid;
-            /* 3 colonnes sur desktop, 2 sur tablette, 1 sur mobile */
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);
         }
 
         /* Carte projet */
         .project-card {
-            position: relative; overflow: hidden;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--glass-border);
-            aspect-ratio: 4 / 3;            /* ratio image fixe */
-            background: var(--glass-bg);
-            cursor: pointer;
+            position: relative; overflow: hidden; border-radius: var(--radius-md);
+            border: 1px solid var(--glass-border); aspect-ratio: 4 / 3;
+            background: var(--glass-bg); cursor: pointer;
             transition: transform var(--transition-base), box-shadow var(--transition-base);
+            will-change: transform;
             text-decoration: none; color: inherit; display: block;
         }
         .project-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-
-        /* Image de la carte — remplacer src dans le HTML */
         .project-card-img {
-            width: 100%; height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
             transition: transform var(--transition-slow);
-            /* Placeholder si pas d'image */
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
         }
         .project-card:hover .project-card-img { transform: scale(1.05); }
-
-        /* Overlay au survol */
         .project-card-overlay {
             position: absolute; inset: 0;
             background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.2) 60%, transparent 100%);
             display: flex; flex-direction: column; justify-content: flex-end;
-            padding: var(--space-md);
-            opacity: 0; transition: opacity var(--transition-base);
+            padding: var(--space-md); opacity: 0; transition: opacity var(--transition-base);
         }
         .project-card:hover .project-card-overlay { opacity: 1; }
-
-        /* Informations toujours visibles (bas de carte) */
         .project-card-info {
             position: absolute; bottom: 0; left: 0; right: 0;
             padding: var(--space-md);
-            background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%);
+            background: linear-gradient(to top, rgba(10,10,10,0.9), transparent);
         }
         .project-card-category {
             font-size: var(--font-size-xs); font-weight: 600; letter-spacing: 0.15em;
-            text-transform: uppercase; color: var(--accent-color);
-            margin-bottom: var(--space-xs);
+            text-transform: uppercase; color: var(--accent-color); margin-bottom: var(--space-xs);
         }
         .project-card-title {
             font-family: var(--font-heading); font-size: var(--font-size-lg);
             font-weight: 700; color: var(--text-primary);
         }
-        .project-card-year {
-            font-size: var(--font-size-xs); color: var(--text-muted); margin-top: 0.25rem;
-        }
-
-        /* Bouton "voir le projet" dans l'overlay */
+        .project-card-year { font-size: var(--font-size-xs); color: var(--text-muted); margin-top: 0.25rem; }
         .project-card-cta {
             display: inline-flex; align-items: center; gap: 0.5rem;
             font-size: var(--font-size-sm); font-weight: 600; color: var(--text-primary);
@@ -270,14 +262,12 @@
         }
         .project-card-cta::after { content: '→'; }
 
-        /* Carte mise en avant (occupe 2 colonnes) */
+        /* Carte mise en avant */
         .project-card--featured { grid-column: span 2; aspect-ratio: 16 / 7; }
 
 
-    
-
         /* ============================================
-           FOOTER — identique à l'index
+           FOOTER
            ============================================ */
         footer {
             position: relative; z-index: 2;
@@ -308,13 +298,13 @@
             :root { --section-pad-y: var(--space-lg); --section-pad-x: var(--space-sm); }
             .projects-grid { grid-template-columns: 1fr; }
             .project-card--featured { grid-column: span 1; aspect-ratio: 4 / 3; }
-            .nav-menu { gap: var(--space-xs); }
-            .nav-menu a { padding: 0.5rem; font-size: var(--font-size-sm); }
+            /* Burger visible, menu desktop caché */
+            .nav-burger { display: flex; }
+            .nav-menu   { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
+                animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
         }
@@ -327,39 +317,65 @@
 
 
     <!-- ============================================
-         NAVIGATION
-         — Copier/coller tel quel sur toutes les pages —
+         NAVIGATION — harmonisée, burger mobile, dropdown Projets
          ============================================ -->
     <nav class="nav-header" id="nav-header" role="navigation" aria-label="Navigation principale">
         <div class="nav-header-inner">
-            <!-- Remplacer par votre logo -->
             <a href="./index.html">
                 <img src="./images/Icon Xs.png" class="nav-logo" alt="Logo — retour à l'accueil">
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu-desktop">
                 <li><a href="./index.html#values-section">Valeurs</a></li>
                 <li><a href="./index.html#about-section">À propos</a></li>
-                <li><a href="./projects.html" class="active">Projets</a></li>
+                <li class="nav-item-dropdown">
+                    <!-- Lien actif sur cette page -->
+                    <a href="./projects.html" class="active" aria-haspopup="true">Projets ▾</a>
+                    <ul class="nav-dropdown" role="menu">
+                        <li><a href="./Pokemon_TCGP.html" role="menuitem">Pokémon TCGP</a></li>
+                        <li><a href="./Revision_Go.html" role="menuitem">Révision Go</a></li>
+                        <li><a href="./Terra_Numerica.html" role="menuitem">Terra Numerica</a></li>
+                        <li><a href="./VALD.html" role="menuitem">VALD</a></li>
+                        <li><a href="./AKRA.html" role="menuitem">AKRA</a></li>
+                        <li><a href="./Cyber_Harcelement.html" role="menuitem">Cyberharcèlement</a></li>
+                        <li><a href="./Gundam3D.html" role="menuitem">Gundam 3D</a></li>
+                        <li><a href="./Midnight_Club.html" role="menuitem">Midnight Club</a></li>
+                    </ul>
+                </li>
                 <li><a href="./index.html#download">CV</a></li>
             </ul>
+            <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
+    <!-- Menu mobile overlay -->
+    <div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-label="Menu mobile">
+        <a href="./index.html#values-section">Valeurs</a>
+        <a href="./index.html#about-section">À propos</a>
+        <a href="./index.html#download">CV</a>
+        <div class="nav-mobile-projects">
+            <span class="label">Projets</span>
+            <a href="./projects.html">Tous les projets</a>
+            <a href="./Pokemon_TCGP.html">Pokémon TCGP</a>
+            <a href="./Revision_Go.html">Révision Go</a>
+            <a href="./Terra_Numerica.html">Terra Numerica</a>
+            <a href="./VALD.html">VALD</a>
+            <a href="./AKRA.html">AKRA</a>
+            <a href="./Cyber_Harcelement.html">Cyberharcèlement</a>
+            <a href="./Gundam3D.html">Gundam 3D</a>
+            <a href="./Midnight_Club.html">Midnight Club</a>
+        </div>
+    </div>
 
-    <!-- ============================================
-         MINI HERO — titre de la page
-         ============================================ -->
+
+    <!-- MINI HERO -->
     <section class="page-hero" aria-labelledby="hero-title">
         <div class="page-hero-inner">
-            <!-- Étiquette au-dessus du titre -->
             <p class="page-hero-label">Sélection — 2024 / 2026</p>
-
-            <!-- Titre principal : mixer font-primary + font-secondary comme dans l'index -->
             <h1 class="page-hero-title" id="hero-title">
                 <span class="font-primary">Mes </span><span class="font-secondary">Projets</span>
             </h1>
-
-            <!-- Sous-titre descriptif — modifier librement -->
             <p class="page-hero-desc">
                 Une sélection de travaux alliant direction artistique, design d'interface et identité visuelle.
             </p>
@@ -367,15 +383,9 @@
     </section>
 
 
-
-
-
     <main id="main-content">
 
-        <!-- ============================================
-             FILTRES DE CATÉGORIE
-             — Ajouter autant de boutons que de catégories —
-             ============================================ -->
+        <!-- FILTRES -->
         <div class="filters" role="group" aria-label="Filtrer les projets par catégorie">
             <button class="filter-btn active" data-filter="all">Tous</button>
             <button class="filter-btn" data-filter="branding">Branding</button>
@@ -386,45 +396,37 @@
 
         <!-- ============================================
              GRILLE DE PROJETS
-             =============================================
-             COMMENT AJOUTER UN PROJET :
-               1. Dupliquer un bloc <article class="project-card">
-               2. Mettre à jour href, data-category, l'image et les textes
-               3. Pour un projet mis en avant, ajouter la classe project-card--featured
+             Tous les liens corrigés : /xxx.html → ./xxx.html
              ============================================ -->
         <section class="projects-section" aria-label="Grille des projets">
             <div class="projects-grid" id="projects-grid">
 
-                <!-- ── PROJET MIS EN AVANT (occupe 2 colonnes) ── -->
-                <a href="/Pokemon TCGP.html"
+                <!-- Projet mis en avant (2 colonnes) -->
+                <a href="./Pokemon_TCGP.html"
                    class="project-card project-card--featured"
                    data-category="ui-ux"
                    aria-label="Voir le projet Pokémon TCGP">
-
-                    <!-- Remplacer src par votre image (ratio 16:7 recommandé) -->
                     <img class="project-card-img"
                          src="./images/Image Projets/Pokemon TCGP/Miniature.png"
-                         alt="Aperçu du projet Pokémon TCGP">
-
+                         alt="Aperçu du projet Pokémon TCGP" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">UI / UX</p>
                         <h2 class="project-card-title">Pokémon TCGP</h2>
                         <p class="project-card-year">2025</p>
                     </div>
-
-                   <div class="project-card-overlay" aria-hidden="true">
+                    <div class="project-card-overlay" aria-hidden="true">
                         <span class="project-card-cta">Voir le projet</span>
                     </div>
                 </a>
 
-                <!-- ── PROJET 2 ── -->
-                <a href="/Revision Go.html"
+                <!-- Révision Go -->
+                <a href="./Revision_Go.html"
                    class="project-card"
                    data-category="ui-ux"
                    aria-label="Voir le projet Révision Go">
                     <img class="project-card-img"
-                         src="./images//Image Projets/Revision Go/Miniature.png"
-                         alt="Aperçu du projet Révision Go">
+                         src="./images/Image Projets/Revision Go/Miniature.png"
+                         alt="Aperçu du projet Révision Go" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">UI / UX</p>
                         <h2 class="project-card-title">Révision Go</h2>
@@ -435,136 +437,126 @@
                     </div>
                 </a>
 
-                <!-- ── PROJET 3 ── -->
-                <a href="/Terra Numerica.html"
+                <!-- Terra Numerica -->
+                <a href="./Terra_Numerica.html"
                    class="project-card"
                    data-category="branding"
                    aria-label="Voir le projet Terra Numerica">
                     <img class="project-card-img"
-                         src="./images//Image Projets/Terra Numerica/Miniature.png"
-                         alt="Aperçu du projet Terra Numerica">
+                         src="./images/Image Projets/Terra Numerica/Miniature.png"
+                         alt="Aperçu du projet Terra Numerica" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">Branding</p>
                         <h2 class="project-card-title">Terra Numerica</h2>
                         <p class="project-card-year">2026</p>
                     </div>
-
                     <div class="project-card-overlay" aria-hidden="true">
                         <span class="project-card-cta">Voir le projet</span>
                     </div>
                 </a>
 
-                <!-- ── PROJET 4 ── -->
-                <a href="/VALD.html"
+                <!-- VALD -->
+                <a href="./VALD.html"
                    class="project-card"
                    data-category="ui-ux"
                    aria-label="Voir le projet VALD">
                     <img class="project-card-img"
-                         src="./images//Image Projets/Vald/Miniature.png"
-                         alt="Aperçu du projet VALD">
+                         src="./images/Image Projets/Vald/Miniature.png"
+                         alt="Aperçu du projet VALD" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">UI / UX</p>
                         <h2 class="project-card-title">VALD</h2>
                         <p class="project-card-year">2026</p>
                     </div>
-                    
                     <div class="project-card-overlay" aria-hidden="true">
                         <span class="project-card-cta">Voir le projet</span>
                     </div>
                 </a>
 
-                <!-- ── PROJET 5 ── -->
-                <a href="/AKRA.html"
+                <!-- AKRA -->
+                <a href="./AKRA.html"
                    class="project-card"
                    data-category="branding"
                    aria-label="Voir le projet AKRA">
                     <img class="project-card-img"
                          src="./images/Image Projets/Akra/mockup1.png"
-                         alt="Aperçu du projet AKRA">
+                         alt="Aperçu du projet AKRA" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">Branding</p>
                         <h2 class="project-card-title">AKRA</h2>
                         <p class="project-card-year">2025</p>
                     </div>
-                    
                     <div class="project-card-overlay" aria-hidden="true">
                         <span class="project-card-cta">Voir le projet</span>
                     </div>
                 </a>
 
-                <!-- ── PROJET 6 ── -->
-                <a href="/Cyber Harcelement.html"
+                <!-- Cyberharcèlement -->
+                <a href="./Cyber_Harcelement.html"
                    class="project-card"
                    data-category="branding"
                    aria-label="Voir le projet Cyberharcèlement">
                     <img class="project-card-img"
-                         src="./images//Image Projets/Cyber Harcelement/Flyer Base.png"
-                         alt="Aperçu du projet Cyberharcèlement">
+                         src="./images/Image Projets/Cyber Harcelement/Flyer Base.png"
+                         alt="Aperçu du projet Cyberharcèlement" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">Branding</p>
                         <h2 class="project-card-title">Cyberharcèlement</h2>
                         <p class="project-card-year">2025</p>
                     </div>
-                    
                     <div class="project-card-overlay" aria-hidden="true">
                         <span class="project-card-cta">Voir le projet</span>
                     </div>
                 </a>
 
-                <!-- ── PROJET 7 ── -->
-                 <a href="/Gundam3D.html"
+                <!-- Gundam 3D -->
+                <a href="./Gundam3D.html"
                    class="project-card"
                    data-category="3D"
-                   aria-label="Voir le projet Gundam">
+                   aria-label="Voir le projet Gundam 3D">
                     <img class="project-card-img"
-                         src="./images//Image Projets/Gundam/Gundam.png"
-                         alt="Aperçu du projet Gundam">
+                         src="./images/Image Projets/Gundam/Gundam.png"
+                         alt="Aperçu du projet Gundam" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">3D</p>
-                        <h2 class="project-card-title">Gundam</h2>
+                        <h2 class="project-card-title">Gundam 3D</h2>
                         <p class="project-card-year">2026</p>
                     </div>
-                    
                     <div class="project-card-overlay" aria-hidden="true">
                         <span class="project-card-cta">Voir le projet</span>
                     </div>
                 </a>
 
-                <!-- ── PROJET 8 ── -->
-                 <a href="/Midnight Club.html"
+                <!-- Midnight Club -->
+                <a href="./Midnight_Club.html"
                    class="project-card"
                    data-category="3D"
                    aria-label="Voir le projet Midnight Club">
                     <img class="project-card-img"
                          src="./images/Image Projets/Midnight Club/Burn.png"
-                         alt="Aperçu du projet Midnight Club">
+                         alt="Aperçu du projet Midnight Club" loading="lazy">
                     <div class="project-card-info">
                         <p class="project-card-category">3D</p>
                         <h2 class="project-card-title">Midnight Club</h2>
                         <p class="project-card-year">2026</p>
                     </div>
-                    
                     <div class="project-card-overlay" aria-hidden="true">
                         <span class="project-card-cta">Voir le projet</span>
                     </div>
                 </a>
 
-                
             </div>
         </section>
 
     </main>
 
 
-    <!-- ============================================
-         FOOTER — identique à l'index
-         ============================================ -->
+    <!-- FOOTER -->
     <footer role="contentinfo">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Contact</h3>
-                <!-- Remplacer par vos coordonnées -->
-                <a href="mailto:hello@monportfolio.fr">hello@monportfolio.fr</a>
+                <a href="mailto:votre@email.com">votre@email.com</a>
                 <a href="tel:+33600000000">+33 6 00 00 00 00</a>
                 <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
                     123 Rue du Design<br>75001 Paris, France
@@ -572,10 +564,10 @@
             </div>
             <div class="footer-section">
                 <h3>Réseaux</h3>
-                <a href="https://linkedin.com"   target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="https://github.com"     target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="https://dribbble.com"   target="_blank" rel="noopener noreferrer">Dribbble</a>
-                <a href="https://behance.net"    target="_blank" rel="noopener noreferrer">Behance</a>
+                <a href="https://linkedin.com"  target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com"    target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://dribbble.com"  target="_blank" rel="noopener noreferrer">Dribbble</a>
+                <a href="https://behance.net"   target="_blank" rel="noopener noreferrer">Behance</a>
             </div>
             <div class="footer-section">
                 <h3>Navigation</h3>
@@ -593,58 +585,88 @@
 
     <script>
     /* ============================================
-       NAVIGATION — masquer au scroll bas, afficher au scroll haut
+       BURGER MENU
        ============================================ */
-    let lastScrollTop = 0;
-    const navHeader   = document.getElementById('nav-header');
-    const SCROLL_THRESHOLD = 80;
+    (function () {
+        const burger     = document.getElementById('nav-burger');
+        const mobileMenu = document.getElementById('nav-mobile-menu');
+        if (!burger || !mobileMenu) return;
 
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop <= SCROLL_THRESHOLD || scrollTop < lastScrollTop) {
-            navHeader.classList.remove('hidden');
-        } else {
-            navHeader.classList.add('hidden');
-        }
-        lastScrollTop = Math.max(scrollTop, 0);
-    }, { passive: true });
+        burger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            burger.classList.toggle('open', isOpen);
+            burger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                burger.classList.remove('open');
+                burger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+    })();
+
+
+    /* ============================================
+       NAV STICKY
+       ============================================ */
+    (function () {
+        let lastScrollTop = 0;
+        const navHeader   = document.getElementById('nav-header');
+        const THRESHOLD   = 80;
+
+        window.addEventListener('scroll', () => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st <= THRESHOLD || st < lastScrollTop) {
+                navHeader.classList.remove('hidden');
+            } else {
+                navHeader.classList.add('hidden');
+            }
+            lastScrollTop = Math.max(st, 0);
+        }, { passive: true });
+    })();
 
 
     /* ============================================
        FILTRE PAR CATÉGORIE
-       — Clique sur un bouton → masque les cartes hors catégorie —
+       — Transition douce opacity + scale —
        ============================================ */
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+    (function () {
+        const filterBtns   = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            // État actif
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                /* Activer le bouton cliqué */
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
 
-            const filter = btn.dataset.filter;
+                const filter = btn.dataset.filter;
 
-            projectCards.forEach(card => {
-                const match = filter === 'all' || card.dataset.category === filter;
-                // Transition douce : opacité + hauteur
-                card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                if (match) {
-                    card.style.opacity   = '1';
-                    card.style.transform = '';
-                    card.style.display   = 'block';
-                } else {
-                    card.style.opacity   = '0';
-                    card.style.transform = 'scale(0.97)';
-                    setTimeout(() => {
-                        if (card.dataset.category !== btn.dataset.filter && btn.dataset.filter !== 'all') {
-                            card.style.display = 'none';
-                        }
-                    }, 300);
-                }
+                projectCards.forEach(card => {
+                    const match = filter === 'all' || card.dataset.category === filter;
+                    card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    if (match) {
+                        card.style.opacity   = '1';
+                        card.style.transform = '';
+                        card.style.display   = 'block';
+                    } else {
+                        card.style.opacity   = '0';
+                        card.style.transform = 'scale(0.97)';
+                        /* Masquer après la transition */
+                        setTimeout(() => {
+                            if (card.dataset.category !== btn.dataset.filter && btn.dataset.filter !== 'all') {
+                                card.style.display = 'none';
+                            }
+                        }, 300);
+                    }
+                });
             });
         });
-    });
+    })();
     </script>
 
 </body>

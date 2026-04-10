@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ↓ Modifier pour chaque projet -->
-    <meta name="description" content="Présentation du projet — Nom du Projet.">
-    <title>Nom du Projet — Portfolio</title>
-
-    <!-- ============================================
-         FONTS  (identiques à l'index)
-         ============================================ -->
+    <meta name="description" content="Présentation du projet — VALD.">
+    <title>VALD — Portfolio</title>
+    <!-- FONTS — une seule requête (perf) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kings&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-
+    <link rel="preload" as="style"
+          href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+          rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Kings&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    </noscript>
     <style>
 
         /* ============================================
@@ -28,68 +28,46 @@
             --text-primary:    #ffffff;
             --text-secondary:  #d1d5db;
             --text-muted:      #9ca3af;
-
-            --glass-bg:     rgba(16, 16, 16, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.498);
-            --glass-blur:   10px;
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-
-            --font-primary:   'Inter', sans-serif;
-            --font-secondary: 'Kings', cursive;
-            --font-heading:   'Playfair Display', serif;
-            --font-size-xs:   clamp(0.65rem, 1.5vw, 0.75rem);
-            --font-size-sm:   clamp(0.75rem, 2vw,   0.85rem);
-            --font-size-base: clamp(0.85rem, 2.5vw, 0.95rem);
-            --font-size-lg:   clamp(0.95rem, 3vw,   1.1rem);
-            --font-size-xl:   clamp(1.1rem,  4vw,   1.35rem);
-            --font-size-2xl:  clamp(1.35rem, 5vw,   1.8rem);
-            --font-size-3xl:  clamp(1.6rem,  6vw,   2.2rem);
-            --font-size-hero: clamp(2.2rem,  7vw,   3.5rem);
-
-            --space-xs:  0.5rem;
-            --space-sm:  1rem;
-            --space-md:  2rem;
-            --space-lg:  3rem;
-            --space-xl:  4rem;
-            --space-2xl: 6rem;
+            --glass-bg:        rgba(16, 16, 16, 0.7);
+            --glass-border:    rgba(255, 255, 255, 0.498);
+            --glass-blur:      10px;
+            --glass-shadow:    0 8px 32px rgba(0, 0, 0, 0.3);
+            --font-primary:    'Inter', sans-serif;
+            --font-secondary:  'Kings', cursive;
+            --font-heading:    'Playfair Display', serif;
+            --font-size-xs:    clamp(0.65rem, 1.5vw, 0.75rem);
+            --font-size-sm:    clamp(0.75rem, 2vw,   0.85rem);
+            --font-size-base:  clamp(0.85rem, 2.5vw, 0.95rem);
+            --font-size-lg:    clamp(0.95rem, 3vw,   1.1rem);
+            --font-size-xl:    clamp(1.1rem,  4vw,   1.35rem);
+            --font-size-2xl:   clamp(1.35rem, 5vw,   1.8rem);
+            --font-size-3xl:   clamp(1.6rem,  6vw,   2.2rem);
+            --font-size-hero:  clamp(2.2rem,  7vw,   3.5rem);
+            --space-xs:  0.5rem; --space-sm: 1rem; --space-md: 2rem;
+            --space-lg:  3rem;   --space-xl: 4rem; --space-2xl: 6rem;
             --space-3xl: 8rem;
-
-            --max-width:     1400px;
-            --section-pad-y: var(--space-2xl);
-            --section-pad-x: var(--space-md);
-
-            --radius-sm:   0.5rem;
-            --radius-md:   1rem;
-            --radius-pill: 2rem;
-
+            --max-width:      1400px;
+            --section-pad-y:  var(--space-2xl);
+            --section-pad-x:  var(--space-md);
+            --radius-sm:   0.5rem; --radius-md: 1rem; --radius-pill: 2rem;
             --transition-fast: 0.2s ease;
             --transition-base: 0.3s ease;
             --transition-slow: 0.5s ease;
-
-            /* Images de fond du hero et footer */
-            --hero-bg:   linear-gradient(to bottom, transparent 0%, var(--bg-solid) 100%),
-                         url('./images/Final.png');
             --footer-bg: linear-gradient(to top, transparent 0%, var(--bg-solid) 100%),
                          url('./images/Final.png');
         }
 
-
-        /* ============================================
-           RESET & BASE
-           ============================================ */
+        /* RESET */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-primary);
-            background-color: var(--bg-solid);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-solid); color: var(--text-primary);
+            line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
         }
         .font-primary   { font-family: var(--font-primary); }
         .font-secondary { font-family: var(--font-secondary); }
-        img { display: block; max-width: 100%; }
+        img, video { display: block; max-width: 100%; }
 
         .skip-to-main {
             position: absolute; left: -9999px; z-index: 999;
@@ -98,13 +76,12 @@
         }
         .skip-to-main:focus { left: 50%; transform: translateX(-50%); top: 1rem; }
 
-
         /* ============================================
-           NAVIGATION — identique à l'index
+           NAVIGATION — sticky, burger mobile, dropdown projets
            ============================================ */
         .nav-header {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: linear-gradient(180deg, rgba(16,16,16,0.48) 0%, rgba(16,16,16,0) 100%);
+            background: linear-gradient(180deg, rgba(16,16,16,0.85) 0%, rgba(16,16,16,0) 100%);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
             padding: var(--space-xs) var(--space-md);
@@ -124,18 +101,80 @@
             transition: color var(--transition-fast), background var(--transition-fast);
             display: block;
         }
-        .nav-menu a:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+        .nav-menu a:hover,
+        .nav-menu a.active { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+
+        /* Dropdown Projets */
+        .nav-item-dropdown { position: relative; }
+        .nav-dropdown {
+            display: none; position: absolute; top: 100%; left: 0;
+            background: rgba(16,16,16,0.97);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            min-width: 200px; padding: 0.5rem 0; z-index: 1001;
+        }
+        .nav-item-dropdown:hover .nav-dropdown,
+        .nav-item-dropdown:focus-within .nav-dropdown { display: block; }
+        .nav-dropdown a { padding: 0.5rem 1rem; display: block; white-space: nowrap; font-size: var(--font-size-sm); }
+
+        /* Burger button */
+        .nav-burger {
+            display: none; flex-direction: column; justify-content: center; gap: 5px;
+            background: none; border: none; cursor: pointer; padding: 0.5rem; z-index: 1001;
+        }
+        .nav-burger span {
+            display: block; width: 24px; height: 2px; background: var(--text-primary);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-burger.open span:nth-child(2) { opacity: 0; }
+        .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Menu mobile overlay */
+        .nav-mobile-menu {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(16,16,16,0.98); z-index: 999;
+            flex-direction: column; align-items: center; justify-content: center;
+            gap: var(--space-lg); overflow-y: auto;
+        }
+        .nav-mobile-menu.open { display: flex; }
+        .nav-mobile-menu a {
+            color: var(--text-primary); text-decoration: none;
+            font-size: var(--font-size-2xl); font-weight: 700;
+            transition: color var(--transition-fast);
+        }
+        .nav-mobile-menu a:hover { color: var(--accent-color); }
+        .nav-mobile-projects { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+        .nav-mobile-projects .label { font-size: var(--font-size-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; }
+        .nav-mobile-projects a { font-size: var(--font-size-lg); }
+
+        /* Flèche retour */
+        .back-arrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            position: fixed; top: 70px; left: var(--space-md);
+            z-index: 900; text-decoration: none;
+            color: var(--text-secondary); font-size: var(--font-size-sm); font-weight: 600;
+            background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border); border-radius: var(--radius-pill);
+            padding: 0.4rem 1rem;
+            transition: color var(--transition-fast), background var(--transition-fast);
+        }
+        .back-arrow:hover { color: var(--text-primary); background: rgba(255,255,255,0.12); }
+
+        @media (max-width: 768px) {
+            .nav-burger { display: flex; }
+            .nav-menu   { display: none; }
+            .back-arrow { top: 60px; left: var(--space-sm); }
+        }
 
 
         /* ============================================
            MINI HERO DU PROJET
-           — Fond image pleine largeur + dégradé bas —
            ============================================ */
         .project-hero {
-            position: relative;
-            min-height: 70vh;
+            position: relative; min-height: 70vh;
             display: flex; flex-direction: column; justify-content: flex-end;
-            /* ↓ Remplacer par l'image principale du projet */
             background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, var(--bg-solid) 100%),
                         url('./images/Final.png') center / cover no-repeat;
             padding: var(--space-3xl) var(--section-pad-x) var(--space-2xl);
@@ -144,9 +183,6 @@
             max-width: var(--max-width); margin: 0 auto; width: 100%;
             display: grid; grid-template-columns: 1fr auto; align-items: flex-end; gap: var(--space-xl);
         }
-
-        /* Bloc gauche : titre + description */
-        .project-hero-left {}
         .project-hero-label {
             font-size: var(--font-size-sm); font-weight: 600; letter-spacing: 0.2em;
             color: var(--accent-color); text-transform: uppercase; margin-bottom: var(--space-sm);
@@ -162,16 +198,11 @@
             font-size: var(--font-size-xl); color: var(--text-secondary);
             max-width: 580px; line-height: 1.5;
         }
-
-        /* Bloc droit : métadonnées */
         .project-hero-meta {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
+            background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            padding: var(--space-md) var(--space-lg);
-            min-width: 220px;
+            border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+            padding: var(--space-md) var(--space-lg); min-width: 220px;
         }
         .meta-item { margin-bottom: var(--space-md); }
         .meta-item:last-child { margin-bottom: 0; }
@@ -181,53 +212,32 @@
         }
         .meta-value { font-size: var(--font-size-base); color: var(--text-primary); font-weight: 600; }
 
-
         /* ============================================
-           UTILITAIRES COMMUNS AUX SECTIONS
+           SECTIONS VISUELLES
            ============================================ */
-        .section-inner {
-            max-width: var(--max-width); margin: 0 auto;
-        }
+        .section-inner  { max-width: var(--max-width); margin: 0 auto; }
+        .section-gap    { padding: var(--space-2xl) var(--section-pad-x); }
+        .section-gap-sm { padding: var(--space-lg)  var(--section-pad-x); }
 
-        /* Espacement vertical de séparation entre sections */
-        .section-gap { padding: var(--space-2xl) var(--section-pad-x); }
-        .section-gap-sm { padding: var(--space-lg) var(--section-pad-x); }
-
-
-        /* ============================================
-           [1] ESPACE VISUEL — Grande image pleine largeur
-               Idéal pour un GIF animé ou une image forte
-           ============================================ -->
-        /* Conteneur de l'image pleine largeur */
-        .visual-fullwidth {
-            width: 100%;
-            overflow: hidden;
-        }
+        .visual-fullwidth { width: 100%; overflow: hidden; }
         .visual-fullwidth img,
+        .visual-fullwidth video,
         .visual-fullwidth .visual-placeholder {
-            width: 100%;
-            /* ↓ Ajuster la hauteur selon vos besoins */
-            height: clamp(400px, 60vh, 800px);
-            object-fit: cover;
+            width: 100%; height: clamp(400px, 60vh, 800px); object-fit: cover;
         }
-        /* Placeholder visuel si pas encore d'image */
         .visual-placeholder {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             display: flex; align-items: center; justify-content: center;
             color: var(--text-muted); font-size: var(--font-size-sm);
             font-style: italic; letter-spacing: 0.1em;
         }
-
-        /* Variante : image avec légende centrée dessous */
         .visual-caption {
-            text-align: center;
-            font-size: var(--font-size-sm); color: var(--text-muted);
+            text-align: center; font-size: var(--font-size-sm); color: var(--text-muted);
             margin-top: var(--space-sm); font-style: italic;
         }
 
-
         /* ============================================
-           [2] CAROUSEL D'IMAGES INTERACTIF
+           CAROUSEL
            ============================================ */
         .carousel-section { padding: var(--space-2xl) 0; }
         .carousel-section .section-label {
@@ -235,115 +245,67 @@
             text-transform: uppercase; color: var(--text-muted);
             text-align: center; margin-bottom: var(--space-xl);
         }
-
         .carousel-wrapper {
-            position: relative;
-            max-width: var(--max-width); margin: 0 auto;
+            position: relative; max-width: var(--max-width); margin: 0 auto;
             padding: 0 var(--section-pad-x);
         }
-
-        /* Fenêtre visible */
-        .carousel-track-container {
-            overflow: hidden;
-            border-radius: var(--radius-md);
-        }
-
-        /* Piste de défilement */
+        .carousel-track-container { overflow: hidden; border-radius: var(--radius-md); }
         .carousel-track {
-            display: flex;
+            display: flex; will-change: transform;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* Chaque slide */
-        .carousel-slide {
-            flex: 0 0 100%; /* pleine largeur par défaut */
-            position: relative;
-        }
+        .carousel-slide { flex: 0 0 100%; position: relative; }
         .carousel-slide img,
         .carousel-slide .visual-placeholder {
-            width: 100%;
-            height: clamp(300px, 50vh, 650px);
-            object-fit: cover;
+            width: 100%; height: clamp(300px, 50vh, 650px); object-fit: cover;
         }
-
-        /* Légende de la slide */
         .slide-caption {
             position: absolute; bottom: 0; left: 0; right: 0;
             padding: var(--space-md);
             background: linear-gradient(to top, rgba(10,10,10,0.85), transparent);
-            font-size: var(--font-size-sm); color: var(--text-secondary);
-            font-style: italic;
+            font-size: var(--font-size-sm); color: var(--text-secondary); font-style: italic;
         }
-
-        /* Flèches de navigation */
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
+            background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            width: 3rem; height: 3rem;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-primary); font-size: 1.2rem;
-            cursor: pointer; z-index: 10;
+            border: 1px solid var(--glass-border); border-radius: 50%;
+            width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center;
+            color: var(--text-primary); font-size: 1.2rem; cursor: pointer; z-index: 10;
             transition: background var(--transition-base), transform var(--transition-fast);
         }
         .carousel-btn:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-50%) scale(1.1);
+            background: rgba(255,255,255,0.15); transform: translateY(-50%) scale(1.1);
         }
-        .carousel-btn--prev { left: calc(var(--section-pad-x) - 1.5rem); }
+        .carousel-btn--prev { left:  calc(var(--section-pad-x) - 1.5rem); }
         .carousel-btn--next { right: calc(var(--section-pad-x) - 1.5rem); }
-
-        /* Indicateurs (points) */
-        .carousel-dots {
-            display: flex; justify-content: center; gap: 0.75rem;
-            margin-top: var(--space-md);
-        }
+        .carousel-dots { display: flex; justify-content: center; gap: 0.75rem; margin-top: var(--space-md); }
         .carousel-dot {
             width: 8px; height: 8px; border-radius: 50%;
             background: var(--text-muted); border: none; cursor: pointer;
-            transition: background var(--transition-base), transform var(--transition-base);
-            padding: 0;
+            transition: background var(--transition-base), transform var(--transition-base); padding: 0;
         }
-        .carousel-dot.active {
-            background: var(--text-primary);
-            transform: scale(1.4);
-        }
-
+        .carousel-dot.active { background: var(--text-primary); transform: scale(1.4); }
 
         /* ============================================
-           [3] BLOC IMAGE / TEXTE (alternés gauche-droite)
-           — Ajouter la classe .reverse pour inverser —
+           BLOC IMAGE / TEXTE
            ============================================ */
         .img-text-block {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-2xl);
-            align-items: center;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: var(--space-2xl); align-items: center;
             padding: var(--space-2xl) var(--section-pad-x);
             max-width: var(--max-width); margin: 0 auto;
         }
-        /* Inversion : texte à gauche, image à droite */
-        .img-text-block.reverse .img-text-image { order: 2; }
+        .img-text-block.reverse .img-text-image   { order: 2; }
         .img-text-block.reverse .img-text-content { order: 1; }
-
-        /* Image du bloc */
         .img-text-image {
-            border-radius: var(--radius-md);
-            overflow: hidden;
+            border-radius: var(--radius-md); overflow: hidden;
             border: 1px solid var(--glass-border);
         }
         .img-text-image img,
         .img-text-image .visual-placeholder {
-            width: 100%;
-            height: clamp(280px, 40vw, 520px);
-            object-fit: cover;
+            width: 100%; height: clamp(280px, 40vw, 520px); object-fit: cover;
         }
-
-        /* Texte du bloc */
-        .img-text-content {}
         .img-text-eyebrow {
             font-size: var(--font-size-xs); font-weight: 600; letter-spacing: 0.2em;
             text-transform: uppercase; color: var(--accent-color); margin-bottom: var(--space-sm);
@@ -356,27 +318,19 @@
             color: var(--text-secondary); font-size: var(--font-size-base);
             line-height: 1.9; margin-bottom: var(--space-md);
         }
-        /* Tags de la section */
         .img-text-tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
         .tag {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
+            background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-pill);
-            padding: 0.4rem 1rem;
-            font-size: var(--font-size-xs); font-weight: 600; color: var(--text-secondary);
+            border: 1px solid var(--glass-border); border-radius: var(--radius-pill);
+            padding: 0.4rem 1rem; font-size: var(--font-size-xs); font-weight: 600;
+            color: var(--text-secondary);
         }
 
-
-        /* ============================================
-           [4] ESPACE VISUEL SECONDAIRE — Grille 2 images
-               Parfait pour des détails / vignettes
-           ============================================ */
+        /* GRILLE DUO */
         .visual-duo {
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: var(--space-md);
-            padding: var(--space-sm) var(--section-pad-x);
+            gap: var(--space-md); padding: var(--space-sm) var(--section-pad-x);
             max-width: var(--max-width); margin: 0 auto;
         }
         .visual-duo-item {
@@ -385,23 +339,12 @@
         }
         .visual-duo-item img,
         .visual-duo-item .visual-placeholder {
-            width: 100%;
-            height: clamp(200px, 30vw, 420px);
-            object-fit: cover;
+            width: 100%; height: clamp(200px, 30vw, 420px); object-fit: cover;
         }
 
-
-        /* ============================================
-           [5] ESPACE VISUEL — GIF / vidéo centré
-               Encadré avec légende
-           ============================================ */
-        .visual-featured {
-            padding: var(--space-2xl) var(--section-pad-x);
-            text-align: center;
-        }
-        .visual-featured-inner {
-            max-width: 900px; margin: 0 auto;
-        }
+        /* VISUEL FEATURED */
+        .visual-featured { padding: var(--space-2xl) var(--section-pad-x); text-align: center; }
+        .visual-featured-inner { max-width: 900px; margin: 0 auto; }
         .visual-featured-label {
             font-size: var(--font-size-sm); font-weight: 600; letter-spacing: 0.2em;
             text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-lg);
@@ -411,20 +354,16 @@
             border: 1px solid var(--glass-border);
         }
         .visual-featured-media img,
+        .visual-featured-media video,
         .visual-featured-media .visual-placeholder {
-            width: 100%;
-            height: clamp(300px, 50vh, 600px);
-            object-fit: cover;
+            width: 100%; height: clamp(300px, 50vh, 600px); object-fit: cover; display: block;
         }
         .visual-featured-caption {
-            margin-top: var(--space-md);
-            font-size: var(--font-size-sm); color: var(--text-muted); font-style: italic;
+            margin-top: var(--space-md); font-size: var(--font-size-sm);
+            color: var(--text-muted); font-style: italic;
         }
 
-
-        /* ============================================
-           NAVIGATION PROJET — Précédent / Suivant
-           ============================================ */
+        /* NAV PROJET précédent/suivant */
         .project-nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: var(--space-2xl) var(--section-pad-x);
@@ -442,16 +381,14 @@
             text-transform: uppercase; color: var(--text-muted);
         }
         .project-nav-link .nav-project-name {
-            font-family: var(--font-heading); font-size: var(--font-size-xl);
-            font-weight: 700;
+            font-family: var(--font-heading); font-size: var(--font-size-xl); font-weight: 700;
         }
         .project-nav-link.next { text-align: right; }
         .project-nav-link.next .nav-direction::before { content: '→ '; }
         .project-nav-link.prev .nav-direction::after  { content: ' ←'; }
 
-
         /* ============================================
-           FOOTER — identique à l'index
+           FOOTER
            ============================================ */
         footer {
             position: relative; z-index: 2;
@@ -470,7 +407,6 @@
         .footer-section a:hover { color: var(--text-primary); }
         .copyright { text-align: center; padding-top: var(--space-lg); border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: var(--font-size-sm); }
 
-
         /* ============================================
            RESPONSIVE
            ============================================ */
@@ -484,17 +420,12 @@
             .img-text-block.reverse .img-text-image,
             .img-text-block.reverse .img-text-content { order: unset; }
             .visual-duo                  { grid-template-columns: 1fr; }
-            .nav-menu                    { gap: var(--space-xs); }
-            .nav-menu a                  { padding: 0.5rem; font-size: var(--font-size-sm); }
             .project-hero-meta           { grid-template-columns: repeat(2, 1fr); }
-            .carousel-btn--prev          { left: var(--space-xs); }
+            .carousel-btn--prev          { left:  var(--space-xs); }
             .carousel-btn--next          { right: var(--space-xs); }
         }
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
             .carousel-track { transition: none; }
         }
 
@@ -504,234 +435,173 @@
 
     <a href="#main-content" class="skip-to-main">Aller au contenu principal</a>
 
-
+    <!-- ============================================
+         NAVIGATION — burger mobile, dropdown Projets
+         Identique sur toutes les pages
+         ============================================ -->
     <nav class="nav-header" id="nav-header" role="navigation" aria-label="Navigation principale">
         <div class="nav-header-inner">
-            <!-- Remplacer par votre logo -->
             <a href="./index.html">
                 <img src="./images/Icon Xs.png" class="nav-logo" alt="Logo — retour à l'accueil">
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu-desktop">
                 <li><a href="./index.html#values-section">Valeurs</a></li>
                 <li><a href="./index.html#about-section">À propos</a></li>
-                <li><a href="./projects.html" class="active">Projets</a></li>
+                <li class="nav-item-dropdown">
+                    <a href="./projects.html" aria-haspopup="true">Projets ▾</a>
+                    <ul class="nav-dropdown" role="menu">
+                        <li><a href="./Pokemon_TCGP.html" role="menuitem">Pokémon TCGP</a></li>
+                        <li><a href="./Revision_Go.html" role="menuitem">Révision Go</a></li>
+                        <li><a href="./Terra_Numerica.html" role="menuitem">Terra Numerica</a></li>
+                        <li><a href="./VALD.html" role="menuitem">VALD</a></li>
+                        <li><a href="./AKRA.html" role="menuitem">AKRA</a></li>
+                        <li><a href="./Cyber_Harcelement.html" role="menuitem">Cyberharcèlement</a></li>
+                        <li><a href="./Gundam3D.html" role="menuitem">Gundam 3D</a></li>
+                        <li><a href="./Midnight_Club.html" role="menuitem">Midnight Club</a></li>
+                    </ul>
+                </li>
                 <li><a href="./index.html#download">CV</a></li>
             </ul>
+            <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
+    <!-- Menu mobile overlay -->
+    <div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-label="Menu mobile">
+        <a href="./index.html#values-section">Valeurs</a>
+        <a href="./index.html#about-section">À propos</a>
+        <a href="./index.html#download">CV</a>
+        <div class="nav-mobile-projects">
+            <span class="label">Projets</span>
+            <a href="./projects.html">Tous les projets</a>
+            <a href="./Pokemon_TCGP.html">Pokémon TCGP</a>
+            <a href="./Revision_Go.html">Révision Go</a>
+            <a href="./Terra_Numerica.html">Terra Numerica</a>
+            <a href="./VALD.html">VALD</a>
+            <a href="./AKRA.html">AKRA</a>
+            <a href="./Cyber_Harcelement.html">Cyberharcèlement</a>
+            <a href="./Gundam3D.html">Gundam 3D</a>
+            <a href="./Midnight_Club.html">Midnight Club</a>
+        </div>
+    </div>
 
-    <!-- ============================================
-         [SECTION 1] MINI HERO DU PROJET
-         =============================================
-         À PERSONNALISER :
-           • background-image dans le style inline (ou via CSS)
-           • data-category / aria-label (ligne .project-hero-label)
-           • Titre (h1.project-hero-title)
-           • Description courte (p.project-hero-desc)
-           • Les 4 métadonnées dans .project-hero-meta
-         ============================================ -->
+    <!-- Flèche retour -->
+    <a href="./projects.html" class="back-arrow" aria-label="Retour aux projets">← Projets</a>
+
+    <!-- ── HERO DU PROJET ── -->
     <section class="project-hero"
-             style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, #101010 100%), url('./images/Image Projets/Vald/billets\ fall.png');"
+             style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, #101010 70%), url('./images/Image Projets/Vald/billets fall.png');"
              aria-labelledby="project-title">
-
         <div class="project-hero-inner">
-
-            <!-- Titre & description -->
             <div class="project-hero-left">
-                <!-- Catégorie / discipline -->
-                <p class="project-hero-label">Branding · Identité Visuelle</p>
-
-                <!-- Titre du projet — mixer les deux polices comme dans l'index -->
-                <h1 class="project-hero-title" id="project-title">
-                    <span class="font-primary">Rebrand </span><span class="font-secondary">Studio Lumière</span>
-                </h1>
-
-                <!-- Description courte (1-2 phrases) -->
-                <p class="project-hero-desc">
-                    Refonte complète de l'identité visuelle d'un studio de création parisien — du logotype au système graphique déployé sur tous les supports.
-                </p>
+                <p class="project-hero-label">UI / UX · Branding</p>
+                <h1 class="project-hero-title" id="project-title"><span class="font-primary">VALD </span><span class="font-secondary">Fan App</span></h1>
+                <p class="project-hero-desc">Application fan dédiée à VALD — expérience immersive ancrée dans l'univers graphique de l'artiste.</p>
             </div>
-
-            <!-- Métadonnées du projet -->
             <aside class="project-hero-meta" aria-label="Informations du projet">
                 <div class="meta-item">
                     <p class="meta-label">Année</p>
-                    <p class="meta-value">2025</p>
+                    <p class="meta-value">2026</p>
                 </div>
                 <div class="meta-item">
                     <p class="meta-label">Client</p>
-                    <p class="meta-value">Studio Lumière</p>
+                    <p class="meta-value">Projet étudiant</p>
                 </div>
                 <div class="meta-item">
                     <p class="meta-label">Rôle</p>
-                    <p class="meta-value">Directeur Artistique</p>
+                    <p class="meta-value">UX/UI Designer</p>
                 </div>
                 <div class="meta-item">
                     <p class="meta-label">Durée</p>
-                    <p class="meta-value">3 mois</p>
+                    <p class="meta-value">1 mois</p>
                 </div>
             </aside>
-
         </div>
     </section>
 
-
     <main id="main-content">
-
-        <!-- ============================================
-             [SECTION 2] GRANDE IMAGE / GIF — Pleine largeur
-             =============================================
-             • Remplacer src par votre visuel principal (GIF ou image)
-             • Retirer .visual-placeholder et ajouter un <img> si prêt
-             ============================================ -->
+        <!-- Section 2 : visuel principal pleine largeur -->
         <div class="visual-fullwidth">
-            <!-- Option A : image réelle -->
-         <img src="./images/Image Projets/Vald/Miniature.png" alt="Animation principale du projet Rebrand Studio Lumière"> 
+            <img src="./images/Image Projets/Vald/Miniature.png" alt="Visuel principal du projet" loading="lazy">
         </div>
-        <p class="visual-caption">Vue d'ensemble du nouveau système visuel déployé</p>
+        <p class="visual-caption">Vue d'ensemble du projet</p>
 
-
-        <!-- ============================================
-             [SECTION 3] BLOC IMAGE / TEXTE — Gauche : image, Droite : texte
-             =============================================
-             • Ajouter class="reverse" à .img-text-block pour inverser
-             • Dupliquer ce bloc autant de fois que nécessaire
-             ============================================ -->
+        <!-- Section 3 : problématique -->
         <article class="img-text-block" aria-label="Problématique et approche">
-
-            <!-- Image -->
             <div class="img-text-image">
-            <img src="./images/Image Projets/Vald/Mockup 2.png" alt="Contexte du projet">
-                
+                <img src="./images/Image Projets/Vald/Mockup 2.png" alt="Contexte du projet" loading="lazy">
             </div>
-
-            <!-- Texte -->
             <div class="img-text-content">
                 <p class="img-text-eyebrow">Problématique</p>
-                <h2 class="img-text-title">
-                    Une identité à réinventer de zéro
-                </h2>
-                <p class="img-text-body">
-                    Studio Lumière existait depuis dix ans avec un logo vieillissant et aucun système graphique cohérent. La mission : concevoir une nouvelle identité capable de traverser le temps, lisible aussi bien sur une façade que dans une newsletter ou sur un reel Instagram.
-                </p>
-                <p class="img-text-body">
-                    L'enjeu était double : rester ancré dans l'ADN du studio (artisanat, lumière naturelle, douceur) tout en projetant une image contemporaine et premium.
-                </p>
+                <h2 class="img-text-title">Approche créative</h2>
+                <p class="img-text-body">Texte à personnaliser : décrivez ici la problématique, les contraintes et l'approche adoptée pour ce projet.</p>
                 <div class="img-text-tags">
-                    <span class="tag">Brand Strategy</span>
-                    <span class="tag">Logo Design</span>
-                    <span class="tag">Typographie</span>
+                    <span class="tag">UI Design</span>
+                    <span class="tag">Fan App</span>
+                    <span class="tag">Figma</span>
                 </div>
             </div>
         </article>
 
-
-        <!-- ============================================
-             [SECTION 4] ESPACE VISUEL — GIF / image encadré (centré)
-             =============================================
-             • Idéal pour montrer un prototype, une animation ou un détail fort
-             ============================================ -->
+        <!-- Section 4 : visuel mis en avant -->
         <div class="visual-featured" aria-label="Détail visuel clé">
             <div class="visual-featured-inner">
-                <p class="visual-featured-label">Direction visuelle</p>
+                <p class="visual-featured-label">Détail</p>
                 <div class="visual-featured-media">
-                 <img src="./images/Image Projets/Vald/Vald.png" alt="Direction artistique — moodboard animé">
+                    <img src="./images/Image Projets/Vald/Vald.png" alt="Détail du projet" loading="lazy">
                 </div>
-                <p class="visual-featured-caption">Exploration chromatique et typographique — Phase de moodboard</p>
+                <p class="visual-featured-caption">Détail du projet</p>
             </div>
         </div>
 
-
-        <!-- ============================================
-             [SECTION 5] CAROUSEL D'IMAGES
-             =============================================
-             • Ajouter / supprimer des .carousel-slide
-             • Mettre à jour les src des <img> et les légendes
-             ============================================ -->
+        <!-- Section 5 : carousel d'images -->
         <section class="carousel-section" aria-labelledby="carousel-label">
-            <p class="section-label" id="carousel-label">Explorations & détails</p>
-
+            <p class="section-label" id="carousel-label">Explorations &amp; détails</p>
             <div class="carousel-wrapper">
-
-                <!-- Flèche précédent -->
-                <button class="carousel-btn carousel-btn--prev"
-                        id="carousel-prev"
-                        aria-label="Image précédente">&#8592;</button>
-
-                <!-- Piste de défilement -->
+                <button class="carousel-btn carousel-btn--prev" id="carousel-prev" aria-label="Image précédente">&#8592;</button>
                 <div class="carousel-track-container">
                     <div class="carousel-track" id="carousel-track" role="list">
-
-                        <!-- ── SLIDE 1 — modifier src et alt ── -->
-                        <div class="carousel-slide" role="listitem" aria-label="Slide 1 sur 4">
-                            <img src="./images/Image Projets/Vald/Mockup 1.png" alt="Logotype final — fond blanc">
-                            <p class="slide-caption">Logotype final sur fond blanc</p>
+                        <div class="carousel-slide" role="listitem" aria-label="Slide 1">
+                            <img src="./images/Image Projets/Vald/Mockup 1.png" alt="Mockup 1" loading="lazy">
+                            <p class="slide-caption">Mockup 1</p>
                         </div>
-
-                        <!-- ── SLIDE 2 ── -->
-                        <div class="carousel-slide" role="listitem" aria-label="Slide 1 sur 4">
-                            <img src="./images/Image Projets/Vald/finalV1.png" alt="Logotype final — fond blanc">
-                            <p class="slide-caption">Logotype final sur fond blanc</p>
+                        <div class="carousel-slide" role="listitem" aria-label="Slide 2">
+                            <img src="./images/Image Projets/Vald/finalV1.png" alt="Final V1" loading="lazy">
+                            <p class="slide-caption">Final V1</p>
                         </div>
-
-                        <!-- ── SLIDE 3 ── -->
-                        <div class="carousel-slide" role="listitem" aria-label="Slide 1 sur 4">
-                            <img src="./images/Image Projets/Vald/Illu bas.png" alt="Logotype final — fond blanc">
-                            <p class="slide-caption">Logotype final sur fond blanc</p>
+                        <div class="carousel-slide" role="listitem" aria-label="Slide 3">
+                            <img src="./images/Image Projets/Vald/Illu bas.png" alt="Illustration" loading="lazy">
+                            <p class="slide-caption">Illustration</p>
                         </div>
-
-                        <!-- ── SLIDE 4 ── -->
-                       <div class="carousel-slide" role="listitem" aria-label="Slide 1 sur 4">
-                            <img src="./images/Image Projets/Vald/Vald.png" alt="Logotype final — fond blanc">
-                            <p class="slide-caption">Logotype final sur fond blanc</p>
+                        <div class="carousel-slide" role="listitem" aria-label="Slide 4">
+                            <img src="./images/Image Projets/Vald/Vald.png" alt="Visuel principal" loading="lazy">
+                            <p class="slide-caption">Visuel principal</p>
                         </div>
-
-                        <!-- ── AJOUTER D'AUTRES SLIDES ICI ── -->
-
                     </div>
                 </div>
-
-                <!-- Flèche suivant -->
-                <button class="carousel-btn carousel-btn--next"
-                        id="carousel-next"
-                        aria-label="Image suivante">&#8594;</button>
-
-                <!-- Indicateurs (dots) — générés par le JS -->
+                <button class="carousel-btn carousel-btn--next" id="carousel-next" aria-label="Image suivante">&#8594;</button>
                 <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Choisir une slide"></div>
-
             </div>
         </section>
 
-
-        <!-- ============================================
-             NAVIGATION ENTRE PROJETS — Précédent / Suivant
-             ============================================ -->
+        <!-- Navigation entre projets -->
         <nav class="project-nav" aria-label="Naviguer entre les projets">
-            <!-- Projet précédent — modifier href et le nom -->
-            <a href="./project.html" class="project-nav-link prev">
-                <span class="nav-direction">Précédent ←</span>
-                <span class="nav-project-name">App Nomad</span>
-            </a>
-
-            <!-- Projet suivant — modifier href et le nom -->
-            <a href="./project.html" class="project-nav-link next">
-                <span class="nav-direction">→ Suivant</span>
-                <span class="nav-project-name">Séquence Éclat</span>
+            <a href="./projects.html" class="project-nav-link prev">
+                <span class="nav-direction">Retour ←</span>
+                <span class="nav-project-name">Tous les projets</span>
             </a>
         </nav>
 
     </main>
 
-
-    <!-- ============================================
-         FOOTER — identique à l'index
-         ============================================ -->
+    <!-- FOOTER -->
     <footer role="contentinfo">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Contact</h3>
-                <a href="mailto:hello@monportfolio.fr">hello@monportfolio.fr</a>
+                <a href="mailto:votre@email.com">votre@email.com</a>
                 <a href="tel:+33600000000">+33 6 00 00 00 00</a>
                 <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
                     123 Rue du Design<br>75001 Paris, France
@@ -757,40 +627,67 @@
         </div>
     </footer>
 
-
     <script>
     /* ============================================
-       NAVIGATION — masquer / afficher au scroll
-       ============================================ */
-    let lastScrollTop = 0;
-    const navHeader   = document.getElementById('nav-header');
-    const SCROLL_THRESHOLD = 80;
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop <= SCROLL_THRESHOLD || scrollTop < lastScrollTop) {
-            navHeader.classList.remove('hidden');
-        } else {
-            navHeader.classList.add('hidden');
-        }
-        lastScrollTop = Math.max(scrollTop, 0);
-    }, { passive: true });
-
-
-    /* ============================================
-       CAROUSEL — navigation par flèches et dots
+       BURGER MENU — toggle menu mobile
        ============================================ */
     (function () {
-        const track     = document.getElementById('carousel-track');
-        const slides    = track.querySelectorAll('.carousel-slide');
+        const burger     = document.getElementById('nav-burger');
+        const mobileMenu = document.getElementById('nav-mobile-menu');
+        if (!burger || !mobileMenu) return;
+
+        burger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            burger.classList.toggle('open', isOpen);
+            burger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                burger.classList.remove('open');
+                burger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+    })();
+
+    /* ============================================
+       NAV STICKY — masquer au scroll bas
+       PERF: passive:true → jamais de blocage de scroll
+       ============================================ */
+    (function () {
+        let lastScrollTop = 0;
+        const navHeader   = document.getElementById('nav-header');
+        const THRESHOLD   = 80;
+
+        window.addEventListener('scroll', () => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st <= THRESHOLD || st < lastScrollTop) {
+                navHeader.classList.remove('hidden');
+            } else {
+                navHeader.classList.add('hidden');
+            }
+            lastScrollTop = Math.max(st, 0);
+        }, { passive: true });
+    })();
+
+    /* ============================================
+       CAROUSEL — flèches, dots, clavier, swipe tactile
+       ============================================ */
+    (function () {
+        const track         = document.getElementById('carousel-track');
         const dotsContainer = document.getElementById('carousel-dots');
-        const btnPrev   = document.getElementById('carousel-prev');
-        const btnNext   = document.getElementById('carousel-next');
+        const btnPrev       = document.getElementById('carousel-prev');
+        const btnNext       = document.getElementById('carousel-next');
+        if (!track) return;
 
-        let current = 0;
-        const total = slides.length;
+        const slides = track.querySelectorAll('.carousel-slide');
+        let current  = 0;
+        const total  = slides.length;
 
-        /* — Créer les dots — */
+        /* Créer les dots dynamiquement */
         slides.forEach((_, i) => {
             const dot = document.createElement('button');
             dot.classList.add('carousel-dot');
@@ -802,38 +699,34 @@
             dotsContainer.appendChild(dot);
         });
 
-        /* — Mettre à jour la position et les dots — */
+        /* Naviguer vers une slide */
         function goTo(index) {
-            current = (index + total) % total; // boucle infinie
+            current = (index + total) % total;
             track.style.transform = `translateX(-${current * 100}%)`;
-
-            // Mettre à jour les dots
             dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, i) => {
                 dot.classList.toggle('active', i === current);
                 dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
             });
         }
 
-        /* — Flèches — */
         btnPrev.addEventListener('click', () => goTo(current - 1));
         btnNext.addEventListener('click', () => goTo(current + 1));
 
-        /* — Navigation clavier (flèches gauche / droite) — */
+        /* Navigation clavier */
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowLeft')  goTo(current - 1);
             if (e.key === 'ArrowRight') goTo(current + 1);
         });
 
-        /* — Swipe tactile — */
+        /* Swipe tactile */
         let startX = 0;
         track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
         track.addEventListener('touchend',   (e) => {
             const diff = startX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
-        });
-
+        }, { passive: true });
     })();
-    </script>
 
+    </script>
 </body>
 </html>
