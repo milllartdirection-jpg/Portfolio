@@ -325,6 +325,13 @@
         }
         .back-arrow:hover { color: var(--text-primary); background: rgba(255,255,255,0.12); }
 
+        /* ============================================
+           No Browser Style Anchor
+           ============================================ */
+           /* Remove browser's default anchor highlight */
+           :target { outline: none; }
+
+
     </style>
 </head>
 <body>
@@ -421,7 +428,7 @@
             <div class="projects-grid" id="projects-grid">
 
                 <!-- Projet mis en avant (2 colonnes) -->
-                <a href="./Pokemon_TCGP.html"
+                <a href="./Pokemon_TCGP.html" id="pokemon"
                    class="project-card project-card--featured"
                    data-category="ui-ux"
                    aria-label="Voir le projet Pokémon TCGP">
@@ -439,7 +446,7 @@
                 </a>
 
                 <!-- Révision Go -->
-                <a href="./Revision_Go.html"
+                <a href="./Revision_Go.html" id="revision"
                    class="project-card"
                    data-category="ui-ux"
                    aria-label="Voir le projet Révision Go">
@@ -457,7 +464,7 @@
                 </a>
 
                 <!-- Terra Numerica -->
-                <a href="./Terra_Numerica.html"
+                <a href="./Terra_Numerica.html" id="terra"
                    class="project-card"
                    data-category="branding"
                    aria-label="Voir le projet Terra Numerica">
@@ -475,7 +482,7 @@
                 </a>
 
                 <!-- VALD -->
-                <a href="./VALD.html"
+                <a href="./VALD.html" id="vald"
                    class="project-card"
                    data-category="ui-ux"
                    aria-label="Voir le projet VALD">
@@ -493,7 +500,7 @@
                 </a>
 
                 <!-- AKRA -->
-                <a href="./AKRA.html"
+                <a href="./AKRA.html" id="akra"
                    class="project-card"
                    data-category="branding"
                    aria-label="Voir le projet AKRA">
@@ -511,7 +518,7 @@
                 </a>
 
                 <!-- Cyberharcèlement -->
-                <a href="./Cyber_Harcelement.html"
+                <a href="./Cyber_Harcelement.html" id="cyber"
                    class="project-card"
                    data-category="branding"
                    aria-label="Voir le projet Cyberharcèlement">
@@ -529,7 +536,7 @@
                 </a>
 
                 <!-- Gundam 3D -->
-                <a href="./Gundam3D.html"
+                <a href="./Gundam3D.html" id="gundam"
                    class="project-card"
                    data-category="3D"
                    aria-label="Voir le projet Gundam 3D">
@@ -547,7 +554,7 @@
                 </a>
 
                 <!-- Midnight Club -->
-                <a href="./Midnight_Club.html"
+                <a href="./Midnight_Club.html" id="midnight"
                    class="project-card"
                    data-category="3D"
                    aria-label="Voir le projet Midnight Club">
@@ -659,7 +666,7 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                /* Activer le bouton cliqué */
+/* Activer le bouton cliqué */
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
@@ -678,4 +685,14 @@
                         /* Masquer après la transition */
                         setTimeout(() => {
                             if (card.dataset.category !== btn.dataset.filter && btn.dataset.filter !== 'all') {
-            
+                                card.style.display = 'none';
+                            }
+                        }, 300);
+                    }
+                });
+            });
+        });
+    })();
+        </script>
+</body>
+</html>

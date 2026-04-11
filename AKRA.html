@@ -223,7 +223,7 @@
         .visual-fullwidth img,
         .visual-fullwidth video,
         .visual-fullwidth .visual-placeholder {
-            width: 100%; height: clamp(400px, 60vh, 800px); object-fit: cover;
+            width: 100%; height: auto; max-height: 90vh; object-fit: contain;
         }
         .visual-placeholder {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
@@ -257,7 +257,7 @@
         .carousel-slide { flex: 0 0 100%; position: relative; }
         .carousel-slide img,
         .carousel-slide .visual-placeholder {
-            width: 100%; height: clamp(300px, 50vh, 650px); object-fit: cover;
+            width: 100%; height: auto; max-height: clamp(300px, 65vh, 700px); object-fit: contain;
         }
         .slide-caption {
             position: absolute; bottom: 0; left: 0; right: 0;
@@ -304,7 +304,7 @@
         }
         .img-text-image img,
         .img-text-image .visual-placeholder {
-            width: 100%; height: clamp(280px, 40vw, 520px); object-fit: cover;
+            width: 100%; height: auto; max-height: clamp(280px, 50vw, 520px); object-fit: contain;
         }
         .img-text-eyebrow {
             font-size: var(--font-size-xs); font-weight: 600; letter-spacing: 0.2em;
@@ -356,7 +356,7 @@
         .visual-featured-media img,
         .visual-featured-media video,
         .visual-featured-media .visual-placeholder {
-            width: 100%; height: clamp(300px, 50vh, 600px); object-fit: cover; display: block;
+            width: 100%; height: auto; max-height: clamp(300px, 65vh, 650px); object-fit: contain; display: block;
         }
         .visual-featured-caption {
             margin-top: var(--space-md); font-size: var(--font-size-sm);
@@ -430,6 +430,15 @@
         }
 
     </style>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./images/Icon Xs.png">
+    <link rel="apple-touch-icon" href="./images/Icon Xs.png">
+
+    <!-- Open Graph — aperçu quand le lien est partagé -->
+    <meta property="og:image" content="./images/Image Projets/Akra/fiche2.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="./images/Image Projets/Akra/fiche2.png">
 </head>
 <body>
 
@@ -601,7 +610,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Contact</h3>
-                <a href="/cdn-cgi/l/email-protection#47312833352207222a262e2b6924282a"><span class="__cf_email__" data-cfemail="5c2a33282e391c39313d3530723f3331">[email&#160;protected]</span></a>
+                <a href="/cdn-cgi/l/email-protection#b4c2dbc0c6d1f4d1d9d5ddd89ad7dbd9"><span class="__cf_email__" data-cfemail="e5938a919780a58088848c89cb868a88">[email&#160;protected]</span></a>
                 <a href="tel:+33600000000">+33 6 00 00 00 00</a>
                 <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
                     123 Rue du Design<br>75001 Paris, France
@@ -721,8 +730,11 @@
    /* Swipe tactile */
         let startX = 0;
         track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
-        track.addEventListener('touchend', (e) => {
+             track.addEventListener('touchend', (e) => {
             const diff = startX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 50) goTo(diff > 0 ? current + 1 : current - 1);
         }, { passive: true });
     })();
+    </script>
+</body>
+</html>

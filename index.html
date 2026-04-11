@@ -9,6 +9,17 @@
     <meta property="og:type" content="website">
     <title>2026 Portfolio - Design Beyond the Surface</title>
 
+    <!-- Favicon — icône dans l'onglet du navigateur -->
+    <link rel="icon" type="image/png" href="./images/Icon Xs.png">
+    <link rel="apple-touch-icon" href="./images/Icon Xs.png">
+
+    <!-- Open Graph — aperçu quand le lien est partagé -->
+    <meta property="og:image" content="./images/Final.webp">
+    <meta property="og:url" content="https://milllartdirection-jpg.github.io/Portfolio/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="./images/Final.webp">
+
     <!-- ============================================
          FONTS — une seule requête (perf: était 2 round-trips)
          display=swap → texte visible immédiatement avec police de secours
@@ -935,7 +946,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Contact</h3>
-                <a href="/cdn-cgi/l/email-protection#17617863657257727a767e7b3974787a"><span class="__cf_email__" data-cfemail="b8ced7cccaddf8ddd5d9d1d496dbd7d5">[email&#160;protected]</span></a>
+                <a href="/cdn-cgi/l/email-protection#0d7b62797f684d68606c6461236e6260"><span class="__cf_email__" data-cfemail="e89e879c9a8da88d85898184c68b8785">[email&#160;protected]</span></a>
                 <a href="tel:+33600000000">+33 6 00 00 00 00</a>
                 <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
                     123 Rue du Design<br>75001 Paris, France
@@ -1651,7 +1662,7 @@
        ============================================ */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
-            const target = document.querySelector(this.getAttribute('href'));
+                       const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: 'smooth' });
