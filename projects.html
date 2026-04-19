@@ -104,7 +104,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             max-width: var(--max-width); margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .nav-logo { height: fit-content; }
+        .nav-logo { height: 32px; width: auto; max-height: 32px; display: block; }
         .nav-menu { display: flex; gap: var(--space-md); list-style: none; }
         .nav-menu a {
             color: var(--text-secondary); text-decoration: none;
@@ -221,11 +221,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .projects-grid {
             max-width: var(--max-width); margin: 0 auto;
             display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);
+            grid-auto-rows: auto; align-items: stretch;
         }
 
         /* Carte projet */
         .project-card {
-            position: relative; overflow: hidden; border-radius: var(--radius-md);
+            position: relative; overflow: hidden; border-radius: 0.375rem;
             border: 1px solid var(--glass-border); aspect-ratio: 4 / 3;
             background: var(--glass-bg); cursor: pointer;
             transition: transform var(--transition-base), box-shadow var(--transition-base);
@@ -236,6 +237,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .project-card-img {
+            position: absolute; inset: 0;
             width: 100%; height: 100%; object-fit: cover;
             transition: transform var(--transition-slow);
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
@@ -270,7 +272,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .project-card-cta::after { content: '→'; }
 
         /* Carte mise en avant */
-        .project-card--featured { grid-column: span 2; aspect-ratio: 16 / 7; }
+        .project-card--featured {
+            grid-column: span 2;
+            aspect-ratio: unset;
+            height: 100%;
+        }
 
 
         /* ============================================
@@ -328,9 +334,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border: 1px solid var(--glass-border); border-radius: var(--radius-pill);
             padding: 0.4rem 1rem;
-            transition: color var(--transition-fast), background var(--transition-fast);
+            transition: color var(--transition-fast), background var(--transition-fast), opacity var(--transition-base);
         }
         .back-arrow:hover { color: var(--text-primary); background: rgba(255,255,255,0.12); }
+        .back-arrow.hidden { opacity: 0; pointer-events: none; }
 
         /* ============================================
            No Browser Style Anchor
@@ -374,7 +381,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <li><a href="./Midnight_Club.html" role="menuitem">Midnight Club</a></li>
                     </ul>
                 </li>
-                <li><a href="./index.html#download">CV</a></li>
+                <li><a href="https://drive.google.com/uc?export=download&id=12-hx-qlzwbu46RJActc6YXvOB_hExuJC" download target="_blank">CV</a></li>
             </ul>
             <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -386,7 +393,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-label="Menu mobile">
         <a href="./index.html#values-section">Valeurs</a>
         <a href="./index.html#about-section">À propos</a>
-        <a href="./index.html#download">CV</a>
+        <a href="https://drive.google.com/uc?export=download&id=12-hx-qlzwbu46RJActc6YXvOB_hExuJC" download target="_blank">CV</a>
         <div class="nav-mobile-projects">
             <span class="label">Projets</span>
             <a href="./projects.html">Tous les projets</a>
@@ -610,7 +617,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <a href="./index.html">Accueil</a>
                 <a href="./index.html#about-section">À propos</a>
                 <a href="./projects.html">Projets</a>
-                <a href="./index.html#download">Télécharger le CV</a>
+                <a href="https://drive.google.com/uc?export=download&id=12-hx-qlzwbu46RJActc6YXvOB_hExuJC" download target="_blank">Télécharger le CV</a>
             </div>
         </div>
         <div class="copyright">
@@ -664,6 +671,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             lastScrollTop = Math.max(st, 0);
         }, { passive: true });
     })();
+    /* ============================================
+       BACK ARROW — masquer au scroll bas
+       ============================================ */
+    (function () {
+        const backArrow = document.querySelector('.back-arrow');
+        if (!backArrow) return;
+        let lastScrollTop = 0;
+        const THRESHOLD = 80;
+        window.addEventListener('scroll', () => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st <= THRESHOLD || st < lastScrollTop) {
+                backArrow.classList.remove('hidden');
+            } else {
+                backArrow.classList.add('hidden');
+            }
+            lastScrollTop = Math.max(st, 0);
+        }, { passive: true });
+    })();
+
+
 
 
     /* ============================================
