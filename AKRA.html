@@ -10,8 +10,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','G-1H0HZSW7JW');</script>
 <!-- End Google Tag Manager -->
-    <meta name="description" content="Présentation du projet — AKRA.">
-    <title>AKRA — Portfolio</title>
+    <meta name="description" content="Présentation du projet — Arka.">
+    <title>Arka — Portfolio</title>
     <!-- FONTS — une seule requête (perf) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,7 +73,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased;
         }
         .font-primary   { font-family: var(--font-primary); }
-        .font-secondary { font-family: var(--font-secondary); 
+        .font-secondary { font-family: var(--font-secondary); font-size: 1.08em;
                             font-size: var(--font-size-hero);}
         img, video { display: block; max-width: 100%; }
 
@@ -110,7 +110,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             display: block;
         }
         .nav-menu a:hover,
-        .nav-menu a.active { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+        .nav-menu a.active { color: var(--text-primary); background: rgba(139,92,246,0.12); }
 
         /* Dropdown Projets */
         .nav-item-dropdown { position: relative; }
@@ -120,6 +120,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             border: 1px solid var(--glass-border);
             border-radius: var(--radius-sm);
             min-width: 200px; padding: 0.5rem 0; z-index: 1001;
+            list-style: none;
         }
         .nav-item-dropdown:hover .nav-dropdown,
         .nav-item-dropdown:focus-within .nav-dropdown { display: block; }
@@ -242,17 +243,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .visual-caption {
             text-align: center; font-size: var(--font-size-sm); color: var(--text-muted);
-            margin-top: var(--space-sm); font-style: italic;
+            margin-top: var(--space-xs); font-style: italic;
         }
 
         /* ============================================
            CAROUSEL
            ============================================ */
-        .carousel-section { padding: var(--space-2xl) 0; }
+        .carousel-section { padding: var(--space-lg) 0; }
         .carousel-section .section-label {
             font-size: var(--font-size-sm); font-weight: 600; letter-spacing: 0.2em;
             text-transform: uppercase; color: var(--text-muted);
-            text-align: center; margin-bottom: var(--space-xl);
+            text-align: center; margin-bottom: var(--space-md);
         }
         .carousel-wrapper {
             position: relative; max-width: var(--max-width); margin: 0 auto;
@@ -301,8 +302,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
            ============================================ */
         .img-text-block {
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: var(--space-2xl); align-items: center;
-            padding: var(--space-2xl) var(--section-pad-x);
+            gap: var(--space-lg); align-items: center;
+            padding: var(--space-lg) var(--section-pad-x);
             max-width: var(--max-width); margin: 0 auto;
         }
         .img-text-block.reverse .img-text-image   { order: 2; }
@@ -339,7 +340,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         /* GRILLE DUO */
         .visual-duo {
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: var(--space-md); padding: var(--space-sm) var(--section-pad-x);
+            gap: var(--space-sm); padding: var(--space-xs) var(--section-pad-x);
             max-width: var(--max-width); margin: 0 auto;
         }
         .visual-duo-item {
@@ -348,12 +349,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         .visual-duo-item img,
         .visual-duo-item .visual-placeholder {
-            width: 100%; height: clamp(200px, 30vw, 420px); object-fit: cover;
+            width: 100%; height: clamp(240px, 36vw, 560px); object-fit: cover;
         }
 
         /* VISUEL FEATURED */
-        .visual-featured { padding: var(--space-2xl) var(--section-pad-x); text-align: center; }
-        .visual-featured-inner { max-width: 900px; margin: 0 auto; }
+        .visual-featured { padding: var(--space-lg) var(--section-pad-x); text-align: center; }
+        .visual-featured-inner { max-width: 1200px; margin: 0 auto; }
         .visual-featured-label {
             font-size: var(--font-size-sm); font-weight: 600; letter-spacing: 0.2em;
             text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-lg);
@@ -365,7 +366,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .visual-featured-media img,
         .visual-featured-media video,
         .visual-featured-media .visual-placeholder {
-            width: 100%; height: auto; max-height: clamp(300px, 65vh, 650px); object-fit: contain; display: block;
+            width: 100%; height: auto; max-height: clamp(400px, 80vh, 900px); object-fit: contain; display: block;
         }
         .visual-featured-caption {
             margin-top: var(--space-md); font-size: var(--font-size-sm);
@@ -476,7 +477,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <li><a href="./Revision_Go.html" role="menuitem">Révision Go</a></li>
                         <li><a href="./Terra_Numerica.html" role="menuitem">Terra Numerica</a></li>
                         <li><a href="./VALD.html" role="menuitem">VALD</a></li>
-                        <li><a href="./AKRA.html" role="menuitem">AKRA</a></li>
+                        <li><a href="./AKRA.html" role="menuitem">Arka</a></li>
                         <li><a href="./Cyber_Harcelement.html" role="menuitem">Cyberharcèlement</a></li>
                         <li><a href="./Gundam3D.html" role="menuitem">Gundam 3D</a></li>
                         <li><a href="./Midnight_Club.html" role="menuitem">Midnight Club</a></li>
@@ -502,7 +503,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="./Revision_Go.html">Révision Go</a>
             <a href="./Terra_Numerica.html">Terra Numerica</a>
             <a href="./VALD.html">VALD</a>
-            <a href="./AKRA.html">AKRA</a>
+            <a href="./AKRA.html">Arka</a>
             <a href="./Cyber_Harcelement.html">Cyberharcèlement</a>
             <a href="./Gundam3D.html">Gundam 3D</a>
             <a href="./Midnight_Club.html">Midnight Club</a>
@@ -564,7 +565,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <h2 class="img-text-title">Les Defis</h2>
                 <p class="img-text-body"> Le défi de ce projet était d’éviter <br>
                                             de tomber dans les clichés graphiques associés à l’univers cyberpunk. <br> 
-                                            J'ai avons donc decider de rester dans une gamme de couleurs monochromatique pour eviter de surcharger visuellement l'indentité. <br>
+                                            Nous avons donc décidé de rester dans une gamme de couleurs monochromatique pour éviter de surcharger visuellement l'identité. <br>
                                             
                                              </p>
                 <div class="img-text-tags">
@@ -631,18 +632,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Contact</h3>
-                <a href="/cdn-cgi/l/email-protection#b4c2dbc0c6d1f4d1d9d5ddd89ad7dbd9"><span class="__cf_email__" data-cfemail="e5938a919780a58088848c89cb868a88">[email&#160;protected]</span></a>
-                <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+                <a href="mailto:milllartdirection@gmail.com">Contactez moi par mail</a>
+                <a href="tel:+33750292084">07 50 29 20 84</a>
                 <address style="color: var(--text-secondary); margin-top: 1rem; font-style: normal;">
-                    123 Rue du Design<br>75001 Paris, France
+                    06300 Nice, France
                 </address>
             </div>
             <div class="footer-section">
                 <h3>Réseaux</h3>
-                <a href="https://linkedin.com"  target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a href="https://github.com"    target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="https://dribbble.com"  target="_blank" rel="noopener noreferrer">Dribbble</a>
-                <a href="https://behance.net"   target="_blank" rel="noopener noreferrer">Behance</a>
+                <a href="https://www.linkedin.com/in/marius-divry-mandrille-391572367?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://www.instagram.com/milll_art_direction/?hl=fr" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.behance.net/mariusdivry-m" target="_blank" rel="noopener noreferrer">Behance</a>
             </div>
             <div class="footer-section">
                 <h3>Navigation</h3>
@@ -653,7 +653,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2026 Votre Nom. Tous droits réservés. Conçu avec passion et précision.</p>
+            <p>&copy; 2026 Marius Divry Mandrille. Tous droits réservés.</p>
         </div>
     </footer>
 
